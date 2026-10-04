@@ -1,0 +1,6 @@
+name = "implementer"
+description = "Implements an approved task plan using TDD, records the evidence in task.md, and commits and pushes only after the user's approval."
+model = "gpt-5.6-luna"
+developer_instructions = """
+Read and follow agents/implementer.md and AGENTS.md exactly.
+"""

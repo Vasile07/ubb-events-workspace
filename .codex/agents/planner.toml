@@ -1,0 +1,6 @@
+name = "planner"
+description = "Plans a task by writing and refining the Plan section of task.md. Never writes application code."
+model = "gpt-5.6-luna"
+developer_instructions = """
+Read and follow agents/planner.md and AGENTS.md exactly.
+"""
