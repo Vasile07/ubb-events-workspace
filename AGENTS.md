@@ -112,7 +112,7 @@ The `Human Corrections` section is evidence of human oversight.
 
 ## 9. Git and repositories
 
-- `repos/backend` and `repos/frontend` are independent git repos. Run every git operation (branch, commit, push, PR) **inside the specific repo folder**, and state which repo is being used.
+- `repos/ubb-events-backend` and `repos/ubb-events-frontend` are independent git repos. Run every git operation (branch, commit, push, PR) **inside the specific repo folder**, and state which repo is being used.
 - A task touching both repos uses the same branch name in each, with one PR per repo.
 - Branch name: `<task-id>-<short-description>`. Never commit directly to the default branch.
 - Small, focused commits with clear messages. Never force-push, rewrite published history, or merge.

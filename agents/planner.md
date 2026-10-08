@@ -34,7 +34,7 @@ Follow `AGENTS.md` at all times. If this file conflicts with it, `AGENTS.md` win
 4. **Write the plan** in the `Plan` section, keeping its headings:
    - **Approach:** the chosen solution and why, in a few sentences. Mention meaningful alternatives you considered and why you did not choose them. Flag decisions significant enough that the team should record them in the Drive documentation or as an ADR.
    - **Steps:** ordered, small and verifiable. Each step names the layer it touches (API, service, persistence, UI) and respects the layering rules in `project-context.md`. Include business rules and error handling explicitly (validation, capacity, registration status, permissions).
-   - **Files to create / modify:** paths, per repo (`repos/backend/...`, `repos/frontend/...`).
+   - **Files to create / modify:** paths, per repo (`repos/ubb-events-backend/...`, `repos/ubb-events-frontend/...`).
    - **Tests to write:** written first, according to the TDD order in `AGENTS.md`. Map **each acceptance criterion to at least one test** (name or description), so the traceability is visible. Include failure and edge cases, not only the happy path.
    - **Risks / open questions:** anything uncertain, with your suggested answer when you have one.
 5. **Keep it minimal.** Plan only what satisfies the acceptance criteria. No extra features, no refactoring outside the task, no speculative abstractions.
