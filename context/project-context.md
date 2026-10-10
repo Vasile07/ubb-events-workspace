@@ -14,12 +14,12 @@ User roles (confirm with the team): `TODO` (e.g. participant/student, organizer,
 
 | Layer | Technology |
 |-------|------------|
-| Backend language / framework | Java 21 (no framework decided yet) |
-| Frontend framework | TODO |
-| Database | TODO |
-| ORM / data access | TODO |
+| Backend language / framework | Java 21 Spring boot |
+| Frontend framework | React |
+| Database | PostgreSQL |
+| ORM / data access | JPA |
 | Authentication / authorization | TODO |
-| API style | TODO (e.g. REST + OpenAPI) |
+| API style | REST + OpenAPI |
 | Backend test framework | JUnit 5 (Jupiter) |
 | Frontend test framework | TODO |
 | Build / package manager (backend) | Gradle, always through the wrapper (`gradlew`) |
@@ -58,27 +58,27 @@ Layering rules specific to the chosen stack: `TODO`
 
 Repository URLs and clone instructions live in `repos/README.md` (single source of truth). Local paths:
 
-- Backend: `repos/backend/`
-- Frontend: `repos/frontend/`
+- Backend: `repos/ubb-events-backend/`
+- Frontend: `repos/ubb-events-frontend/`
 
 ## 7. How to run and test
 
-Backend (Java 21, Gradle, JUnit 5). Always use the Gradle wrapper from the backend repo root (`repos/backend/`), never a globally installed `gradle`, so everyone builds with the same version.
+Backend (Java 21, Gradle, JUnit 5). Always use the Gradle wrapper from the backend repo root (`repos/ubb-events-backend/`), never a globally installed `gradle`, so everyone builds with the same version.
 
 ```
 # Windows (cmd / PowerShell)
 .\gradlew.bat build             # compile everything and run all tests
 .\gradlew.bat run               # run the application (main class configured in build.gradle)
 .\gradlew.bat test              # run all tests
-.\gradlew.bat test --tests "com.example.SumTest"           # run one test class
-.\gradlew.bat test --tests "com.example.SumTest.methodName" # run one test method
+.\gradlew.bat test --tests "com.example.ClassTest"           # run one test class
+.\gradlew.bat test --tests "com.example.ClassTest.methodName" # run one test method
 .\gradlew.bat clean test        # clean first, forces a full re-run of the tests
 
 # Linux / macOS
 ./gradlew build
 ./gradlew run
 ./gradlew test
-./gradlew test --tests "com.example.SumTest"
+./gradlew test --tests "com.example.ClassTest"
 ./gradlew clean test
 ```
 
@@ -95,5 +95,5 @@ Local environment (database, services): `TODO`
 
 ## 8. Where things are documented
 
-- Requirements, use cases, architecture, ERD, API specification, ADRs: Google Drive: `TODO link`
+- Requirements, use cases, architecture, ERD, API specification, ADRs: [Google Drive doc](https://docs.google.com/document/d/1yxuTw802yzVg7W2Efn1kozgppFnyh9umw7WgCmRutJ8/edit?tab=t.j04pz2q0fhhi#heading=h.3se70sg4uban)
 - Task evidence (plans, test log, corrections): `changes/` in this workspace.

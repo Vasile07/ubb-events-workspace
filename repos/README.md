@@ -6,10 +6,8 @@ Single source of truth for the project repositories. The `onboarding` skill read
 
 | Name | Local path | URL | Default branch |
 |------|------------|-----|----------------|
-| backend | `repos/backend/` | https://github.com/Vasile07/sum-demo.git | `master` |
-| frontend | `repos/frontend/` | TODO | `master` |
-
-Replace each `TODO` with the real clone URL (HTTPS or SSH, whichever your team uses).
+| ubb-events-backend | `repos/ubb-events-backend/` | https://github.com/Vasile07/ubb-events-backend.git | `master` |
+| ub-events-frontend | `repos/ubb-events-frontend/` | https://github.com/Vasile07/ubb-events-frontend.git | `master` |
 
 ## Setup
 
@@ -22,13 +20,13 @@ Ask your agent to run the `onboarding` skill (for example: "run onboarding"). It
 Manual alternative, from the workspace root:
 
 ```
-git clone <backend-url> repos/backend
-git clone <frontend-url> repos/frontend
+git clone <backend-url> repos/ubb-events-backend
+git clone <frontend-url> repos/ubb-events-frontend
 ```
 
 ## Rules
 
-- `repos/backend/` and `repos/frontend/` are **independent git repositories**. They are listed in the workspace `.gitignore` and are never committed to the workspace repo. This `README.md` is tracked.
+- `repos/ubb-events-backend/` and `repos/ubb-events-frontend/` are **independent git repositories**. They are listed in the workspace `.gitignore` and are never committed to the workspace repo. This `README.md` is tracked.
 - Run every git operation (branch, commit, push, PR) **inside the specific repo folder**, not at the workspace root.
 - Branches are named `<task-id>-<short-description>`. Never commit directly to `master`.
 - Never commit secrets or `.env` files in any repo.
@@ -36,6 +34,6 @@ git clone <frontend-url> repos/frontend
 ## Workspace `.gitignore` entries
 
 ```
-repos/backend/
-repos/frontend/
+repos/ubb-events-backend/
+repos/ubb-events-frontend/
 ```
