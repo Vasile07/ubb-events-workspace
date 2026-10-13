@@ -9,7 +9,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 ## Metadata
 
 - **Task ID:** 
-- **Type:** workflow | artifact | research | architecture | deployment | no-ai
+- **Type:** workflow | entity | artifact | research | architecture | deployment | no-ai
 - **Owner:** 
 - **Requirement(s):** (e.g. R3)
 - **Use case(s):** (e.g. UC-05 Register for event)

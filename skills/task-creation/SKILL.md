@@ -28,7 +28,7 @@ The user describes the task in free text. Possible information: what to do, why,
    - Leave every unknown value empty. Never invent requirements, use cases, owners or links.
 
 5. **Ask about missing essentials in one short message** (not one question at a time). The essentials are:
-   - Type: `workflow`, `artifact`, `research`, `architecture`, `deployment` or `no-ai`.
+   - Type: `workflow`, `entity`, `artifact`, `research`, `architecture`, `deployment` or `no-ai`.
    - Owner.
    - Related requirement or use case, if any.
    - Repo(s) involved, if the task touches code.

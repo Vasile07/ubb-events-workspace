@@ -26,13 +26,15 @@ agents/      planner.md, implementer.md
 skills/      onboarding, task-creation, start-working, create-pr
 context/     project-context.md (stack, layering rules, naming, branch convention, repo paths)
 repos/       backend/ and frontend/ (separate git repos, cloned here, not tracked by the workspace)
+docs/        task-list.md, use-cases.md
+  entities/  entity specifications created by the Database creation task
 changes/     task-template.md
   todo/        <task-id>-<short-description>.md
   active/      <task-id>-<short-description>.md
   completed/   <task-id>-<short-description>.md
 ```
 
-- Full documentation lives in Google Drive, written manually by the team. Agents do **not** create or edit project documentation.
+- Full documentation lives in Google Drive, written manually by the team. Agents do **not** create or edit project documentation, except for entity specifications under `docs/entities/` when the approved *Database creation* task explicitly requires them.
 - Agents get context only from: `context/project-context.md`, the active task, the relevant code in `repos/`, and tasks in `changes/completed/`. Do not scan unrelated tasks or folders.
 
 ## Skills and agents
@@ -62,9 +64,10 @@ If a request matches a skill, use the skill instead of improvising the same step
 
 ## 5. Task types
 
-`workflow`, `artifact`, `research`, `architecture`, `deployment`, `no-ai`.
+`workflow`, `entity`, `artifact`, `research`, `architecture`, `deployment`, `no-ai`.
 
 - **`no-ai` tasks:** agents must **not** write, generate, modify or suggest code for the task. Before doing anything, `start-working` checks the `type` field. If it is `no-ai`, stop and tell the user the task is reserved for manual implementation. Agents may only act when the user explicitly asks for something non-generative, such as answering a conceptual question or reviewing a design after the user has finished.
+- **`entity` tasks:** follow the same plan and approval gates. Build the specified persistence scaffold without business rules; workflow tasks own those rules.
 - **`research`, `architecture`, `deployment`:** follow the same flow (plan, gates, corrections). The output may be notes, a decision, configuration or scripts instead of application code. Record the result in the task and point to the Drive document or ADR.
 
 ## 6. Workflow

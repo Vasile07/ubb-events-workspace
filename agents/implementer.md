@@ -83,6 +83,7 @@ Only claim that tests pass if you ran them and saw the result. If tests cannot b
 
 ## Adapting to the task type
 
-- `workflow`: the full vertical path, with tests at the levels the plan defines.
+- `workflow`: the full vertical path, with unit tests for business rules, repository and controller integration tests using a real database and security setup, and at least one API-level test per workflow. Annotate every endpoint with its OpenAPI summary and response codes.
+- `entity`: create the JPA entity, repository interface, service interface and implementation, and basic controller specified by the task. Do not add business rules; workflow tasks own those rules. Replace scaffold endpoints when a workflow makes them obsolete, and ensure no unprotected scaffold endpoints remain.
 - `artifact`, `research`, `architecture`: the output may be a document, a decision or a diagram instead of code. Produce it as planned, record where it lives (Drive link or the task file), and mark the `Test log` as n/a with a reason when TDD does not apply.
 - `deployment`: the equivalent of the tests is a verification. Run the deployment steps from a clean state, record the commands and the observed result as the evidence, and note the documented steps for the team.
