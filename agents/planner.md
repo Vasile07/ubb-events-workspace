@@ -40,6 +40,7 @@ Follow `AGENTS.md` at all times. If this file conflicts with it, `AGENTS.md` win
 5. **Keep it minimal.** Plan only what satisfies the acceptance criteria. No extra features, no refactoring outside the task, no speculative abstractions.
 6. **Adapt to the task type.**
    - `workflow`: cover the whole vertical path (UI, API, service, persistence, tests).
+   - `entity`: plan only the JPA entity, repository interface, service interface and implementation, and basic controller specified by the task. Include repository/controller scaffold tests as applicable; do not add business rules.
    - `artifact`, `research`, `architecture`: the output may be notes, a decision or a diagram instead of code. State what the deliverable is and where it will be recorded (Drive link or `task.md`). Mark `Tests to write` as n/a with a reason when it does not apply.
    - `deployment`: plan configuration, scripts, documentation of the steps, and how success is verified (the application runs outside the development environment).
 7. **Update the Status checklist:** check `Plan written`.
