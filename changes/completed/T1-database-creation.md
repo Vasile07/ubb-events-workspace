@@ -10,16 +10,15 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T1
 - **Type:** architecture
-- **Owner:** 
+- **Owner:** Karina Kentsch
 - **Requirement(s):** R7, R8
 - **Use case(s):** 
 - **Workflow:** architecture
 - **Drive doc / ADR:** (link or section reference)
 - **Repo(s):** backend
-- **Branch:** `T1-database-creation`
-- **PR link(s):** 
-- **Tests:** (test classes/files, filled at the end)
-
+- **Branch:** -
+- **PR link(s):** docs/entities-specs
+- **Tests:** 
 ## Description
 
 <!-- What needs to be done and why. Which user need does it address? -->
@@ -31,12 +30,14 @@ Backlog specification:
 - **Type:** architecture. **Requirements:** R7, R8. **Depends on:** none.
 - Choose the database and set up a local instance.
 - Write the schema script (DDL), with no migration tool.
-- Write `docs/entities/<entity>.md` in the workspace for every entity: User, Organization, Membership, MembershipRequest, Event, EventTask, Registration, FollowUp, ChatMessage, Announcement. Each spec lists the fields, types, constraints and relationships.
-- Key fields: Organization has a unique, human-readable `orgCode`. Membership has a role (MEMBER or MANAGER). Event has a start and an end date and time, a status (DRAFT or PUBLISHED) and a `deleted` boolean, and no creator. Registration has a status (REGISTERED or CANCELLED), with one row per user and event.
+- Write `docs/entities/<entity>.md` in the workspace for every entity: User, Organization, Membership, Category, Event, Registration, FollowUp, Message, Task, Announcement. Each spec lists the fields, types, constraints and relationships.
+- The organization identifier is `organization_id` (there is no separate `orgCode`). Membership `role` is intended to represent MEMBER or MANAGER; nullable `status` represents PENDING (approval not processed) or ACTIVE (active membership). Membership requests are represented by membership status; there is no separate MembershipRequest entity.
+- Events belong to an organization and a category. Event `status` is DRAFT or PUBLISHED for active events, and CANCELED for canceled/deleted events. The schema has a `date`, `start_time`, and nullable `end_time`; it has no separate `deleted` field or creator field.
+- Registration has event and user references. The current schema does not define a registration status or enforce one row per user and event.
 - Seed script for the application administrator: a few organizations, each with a first manager (a user with a hashed password and a MANAGER membership). It is reused by deployment and by the tests.
 - Needs a workspace change: a `docs/` folder, readable by the agents (see "Workspace changes needed").
 
-Task specification: create the entity specifications under `/docs/entities/`, one file per entity: `User.md`, `Organization.md`, `Membership.md`, `MembershipRequest.md`, `Event.md`, `EventTask.md`, `Registration.md`, `FollowUp.md`, `ChatMessage.md`, and `Announcement.md`. Each file records the entity fields, types, constraints, and relationships.
+Task specification: create the entity specifications under `/docs/entities/`, one file per entity: `User.md`, `Organization.md`, `Membership.md`, `Category.md`, `Event.md`, `Registration.md`, `FollowUp.md`, `Message.md`, `Task.md`, and `Announcement.md`. Each file records the entity fields, types, constraints, and relationships based on the current database schema. MembershipRequest is represented through membership status. Message is the entity stored in the `messages` table.
 
 Dependencies from the backlog: none.
 
@@ -98,7 +99,7 @@ in the user's own terms. Never on the agent's own initiative.
 
 | # | Phase (plan / implementation) | What was wrong | What was changed or rejected | Why |
 |---|-------------------------------|----------------|------------------------------|-----|
-|   |                               |                |                              |     |
+| 1 | plan | The original entity list and key-field description did not match the Supabase schema and clarified entity/status structure. | Updated the task specification to use the current schema: added Category, represented membership requests through Membership.status, named the messages/tasks entities Message and Task, and aligned organization, membership, event, and registration details. | To make T1 describe the database structure provided by the user. |
 
 ## Design decisions, alternatives, limitations
 
