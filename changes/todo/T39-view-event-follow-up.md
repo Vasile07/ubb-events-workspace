@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T39
 - **Type:** workflow
-- **Owner:** 
+- **Owner:** Cernautan Teofan
 - **Requirement(s):** LIF-05
 - **Use case(s):** none (supports UC-13)
 - **Workflow:** workflow

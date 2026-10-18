@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T3
 - **Type:** architecture
-- **Owner:** 
+- **Owner:** Irimies Vasile
 - **Requirement(s):** R8, R9
 - **Use case(s):** 
 - **Workflow:** architecture

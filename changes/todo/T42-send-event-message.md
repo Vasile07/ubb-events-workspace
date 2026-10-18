@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T42
 - **Type:** workflow
-- **Owner:** 
+- **Owner:** Cernautan Teofan
 - **Requirement(s):** ORGZ-05, ORG-05
 - **Use case(s):** UC-14
 - **Workflow:** workflow

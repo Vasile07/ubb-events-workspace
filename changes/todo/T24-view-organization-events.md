@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T24
 - **Type:** workflow
-- **Owner:** 
+- **Owner:** Blaj Horatiu
 - **Requirement(s):** EVT-01, EVT-02
 - **Use case(s):** none (supports UC-06, UC-07)
 - **Workflow:** workflow

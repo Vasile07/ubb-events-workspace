@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T4
 - **Type:** entity
-- **Owner:** 
+- **Owner:** Irimies Vasile
 - **Requirement(s):** R7
 - **Use case(s):** 
 - **Workflow:** entity
