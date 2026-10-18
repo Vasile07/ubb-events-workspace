@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T38
 - **Type:** workflow
-- **Owner:** 
+- **Owner:** Brudea Armand
 - **Requirement(s):** LIF-04, LIF-05, ORGZ-06
 - **Use case(s):** UC-13
 - **Workflow:** workflow

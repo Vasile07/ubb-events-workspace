@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T18
 - **Type:** workflow
-- **Owner:** 
+- **Owner:** Kentsch Karina
 - **Requirement(s):** ORG-04, ORG-05
 - **Use case(s):** UC-16
 - **Workflow:** workflow

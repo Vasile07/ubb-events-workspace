@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T40
 - **Type:** entity
-- **Owner:** 
+- **Owner:** Cernautan Teofan
 - **Requirement(s):** R7
 - **Use case(s):** 
 - **Workflow:** entity

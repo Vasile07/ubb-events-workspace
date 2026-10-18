@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T35
 - **Type:** workflow
-- **Owner:** 
+- **Owner:** Brudea Armand
 - **Requirement(s):** REG-05, ORG-05
 - **Use case(s):** UC-12
 - **Workflow:** workflow

@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T31
 - **Type:** workflow
-- **Owner:** 
+- **Owner:** Brudea Armand
 - **Requirement(s):** DSC-03, DSC-04, EVT-04
 - **Use case(s):** UC-10
 - **Workflow:** workflow

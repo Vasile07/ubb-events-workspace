@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T27
 - **Type:** workflow
-- **Owner:** 
+- **Owner:** Blaj Horatiu
 - **Requirement(s):** ORGZ-03
 - **Use case(s):** none (ORGZ-03)
 - **Workflow:** workflow
