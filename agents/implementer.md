@@ -37,9 +37,12 @@ Never commit to `master`.
 
 1. Write the tests described in the plan's `Tests to write`, covering the acceptance criteria, including failure and edge cases.
 2. Add only the minimum code (stubs, empty methods, signatures) needed for the project to compile.
-3. Run the tests and confirm they **fail for the right reason**: a missing behavior, not a compilation error, a broken setup or a wrong test. If a new test passes immediately, or fails for the wrong reason, investigate and fix the test before continuing.
-4. Record in the `Test log` section, under **Red**: the tests, the actual result, and why they failed.
-5. Check `Tests written and confirmed failing (red)` in the Status checklist.
+3. Run the tests and confirm a behavioral failure caused by the missing planned functionality. A compilation error, test setup problem, environment/permission error, or defective assertion is not a valid red result.
+4. If execution is blocked or fails for the wrong reason, stop before implementing product behavior. Fix the test/setup issue and rerun. When sandbox or cache permissions block execution, use the approved escalation path; if access is unavailable, report the blocker and wait for a resolution.
+5. Record the exact command, failing test names, observed failure, and why it demonstrates missing behavior in the task's **Red** section. Do not rely on a summary that does not include the observed result.
+6. Only after a valid behavioral red run, check `Tests written and confirmed failing (red)` in the Status checklist and proceed to Green.
+
+The valid red run must happen before implementing the planned behavior. A delayed or controlled failure after implementation may show that tests detect missing behavior, but it does not satisfy the required TDD sequence. Record it as a deviation and leave the red status item unchecked.
 
 ### 3. Green: implement
 
