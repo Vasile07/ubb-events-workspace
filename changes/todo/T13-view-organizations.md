@@ -30,7 +30,7 @@ Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORG-06. **Depends on:** Init Membership entity, Request organization membership.
 - `GET /api/organizations` for any signed-in user, outside the organization path. No pagination.
-- Each organization shows its public information (name, description, orgCode) and the user's status: MEMBER, PENDING or NONE (a declined request counts as NONE).
+- Each organization shows its public information (name, description, orgCode), the user's status (MEMBER, PENDING or NONE; a declined request counts as NONE), and the user's actual role, not a desired role. For status NONE, role is NONE. For status MEMBER, return the actual membership role. Pending memberships always have a desired role (MEMBER or MANAGER); a null desired role is not possible. For status PENDING, a desired role of MANAGER maps to actual role MEMBER, and a desired role of MEMBER maps to actual role NONE.
 - Never expose private member or request data.
 
 Dependencies from the backlog: 7, 12.
@@ -41,6 +41,7 @@ Dependencies from the backlog: 7, 12.
 
 - [ ] The task is implemented according to the backlog specification above.
 - [ ] Relevant behavior, validation, authorization, and error cases specified above are covered by tests as applicable.
+- [ ] Each organization response includes the user's actual role: NONE status returns role NONE; MEMBER status returns the actual membership role; PENDING with desired role MANAGER returns role MEMBER, and PENDING with desired role MEMBER returns role NONE.
 
 <!-- Proposed from the backlog; confirm or edit during task planning. -->
 
