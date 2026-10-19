@@ -50,7 +50,7 @@ Dependencies from the backlog: 1, 2, 3, 6.
 
 - **Relevant code:** 
 - **Related completed tasks:** 
-- **Constraints / assumptions:** 
+- **Constraints / assumptions:** T21 (Init Registration entity) depends on this task's Event model. Per the user's direction on T21, that task may proceed before T19 is complete by mapping its required `event_id` as a scalar temporarily; reconcile the Registration-to-Event ORM association after T19 supplies the Event model.
 
 ## Plan
 
