@@ -10,7 +10,7 @@ Represents an account in the system (`public.users`).
 | `first_name` | `character varying` | Not null |
 | `last_name` | `character varying` | Not null |
 | `email` | `character varying` | Not null; unique |
-| `password` | `character varying` | Not null; unique |
+| `password` | `character varying` | Not null |
 
 ## Relationships
 
