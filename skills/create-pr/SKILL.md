@@ -14,7 +14,7 @@ Follow `AGENTS.md` at all times.
 Read `changes/active/<task-id>-<short-description>.md` and verify:
 
 1. `Gate 2` is checked and `Committed and pushed` is checked. If not, stop and tell the user.
-2. The `Test log` has the red and green evidence. If not, tell the user before continuing.
+2. The `Test log` has red and green evidence. Red must be a behavioral failure caused by missing planned functionality and observed before implementation; a setup error, assertion defect, or delayed controlled check does not satisfy this requirement. If valid red or green evidence is missing, stop and tell the user before continuing.
 
 For every repo listed in `Repo(s)` (run inside that repo folder, and state which repo you are acting on):
 

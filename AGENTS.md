@@ -93,10 +93,14 @@ Never skip or merge gates. Do not proceed past a gate without an explicit approv
 The implementer follows this order and records it in the `Test log` section:
 
 1. Write the tests first, plus the minimum code (stubs) needed to compile.
-2. Run the tests and confirm they **fail**. Record which tests and why they failed.
-3. Implement the functionality.
-4. Run the tests and confirm they **pass**. Record the result.
-5. Run the wider test suite of the affected repo to check for regressions.
+2. Run the tests and confirm a **behavioral failure caused by the missing planned functionality**. A compile error, test setup failure, environment/permission failure, or defective assertion is not a red result.
+3. If the run is blocked or fails for the wrong reason, stop before implementing the functionality. Fix the test or setup issue and rerun. If a sandbox or cache permission blocks execution, use the approved escalation path; if access is unavailable, report the blocker and wait. Do not proceed to implementation without a valid behavioral red result.
+4. Record the exact command, failing test names, observed failure, and why it demonstrates missing behavior in the task's `Test log`. Only then check `Tests written and confirmed failing (red)`.
+5. Implement the functionality.
+6. Run the tests and confirm they **pass**. Record the command and result.
+7. Run the wider test suite of the affected repo to check for regressions.
+
+The red result must happen before implementation. A delayed or controlled check performed after implementation can demonstrate test sensitivity, but it does not satisfy the required TDD sequence and must not be used to check the red status item. Record such checks as deviations without presenting them as pre-implementation evidence.
 
 Also:
 
