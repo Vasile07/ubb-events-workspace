@@ -30,7 +30,7 @@ Read `/docs/entities/Event.md` for this entity's fields, types, constraints, and
 
 Backlog specification:
 
-- **Type:** entity. **Requirements:** R7. **Depends on:** Database creation, Backend skeleton, API conventions and error handling, Init Organization entity.
+- **Type:** entity. **Requirements:** R7. **Depends on:** Database creation, Backend skeleton, API conventions and error handling, Init Organization entity, and Init FollowUp entity (T37; T37 must be completed first per the task sequencing decision).
 - Entity scaffold for Event: start and end date and time, status, `deleted` flag. No creator.
 
 Dependencies from the backlog: 1, 2, 3, 6.
@@ -50,7 +50,7 @@ Dependencies from the backlog: 1, 2, 3, 6.
 
 - **Relevant code:** 
 - **Related completed tasks:** 
-- **Constraints / assumptions:** T21 (Init Registration entity) depends on this task's Event model. Per the user's direction on T21, that task may proceed before T19 is complete by mapping its required `event_id` as a scalar temporarily; reconcile the Registration-to-Event ORM association after T19 supplies the Event model.
+- **Constraints / assumptions:** T21 (Init Registration entity) and T37 (Init FollowUp entity) are sequenced before T19. T37 must be completed before T19 begins, even though this is an added task sequencing dependency beyond the original backlog dependencies. T21 and T37 use a required scalar `event_id` temporarily because the Event model is not yet available. When starting T19, its worker must inspect the Registration and FollowUp entities and their tests, then replace both temporary scalar mappings with required ORM associations to the Event model using `event_id`; update the corresponding tests and verify both relationships as part of T19.
 
 ## Plan
 
