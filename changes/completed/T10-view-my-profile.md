@@ -141,4 +141,4 @@ in the user's own terms. Never on the agent's own initiative.
 - [x] PR reviewed
 - [x] **Gate 3:** merged by user
 - [ ] Metadata complete (traceability)
-- [ ] Moved to `changes/completed/`
+- [x] Moved to `changes/completed/`
