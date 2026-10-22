@@ -29,7 +29,7 @@ Create the backend task “View event messages” from the backlog. This task ad
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORGZ-05, ORG-05. **Depends on:** Organization-scoped authorization, Init ChatMessage entity.
-- `GET /api/organizations/{orgCode}/events/{eventId}/messages`: the messages of the event, for members and managers. No messages returns an empty list, and others get 403.
+- `GET /api/organizations/{organizationId}/events/{eventId}/messages`: the messages of the event, for members and managers. No messages returns an empty list, and others get 403.
 - Available from the draft state. Not paginated.
 
 Dependencies from the backlog: 9, 40.

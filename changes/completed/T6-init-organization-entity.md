@@ -31,7 +31,7 @@ Read `/docs/entities/Organization.md` for this entity's fields, types, constrain
 Backlog specification:
 
 - **Type:** entity. **Requirements:** R7. **Depends on:** Database creation, Backend skeleton, API conventions and error handling.
-- Entity scaffold for Organization, using `organization_id` as its identifier. There is no `orgCode`. Organizations are read-only through the API (they are created in SQL).
+- Entity scaffold for Organization, using `organization_id` as its identifier. There is no `organizationId`. Organizations are read-only through the API (they are created in SQL).
 
 Dependencies from the backlog: 1, 2, 3.
 
@@ -50,7 +50,7 @@ Dependencies from the backlog: 1, 2, 3.
 
 - **Relevant code:** `repos/ubb-events-backend/Model/src/main/java/com/ubb/events/domain/User.java` and `Model/src/test/java/com/ubb/events/domain/UserTest.java` show the existing JPA entity mapping and unit-test pattern; `Persistence/src/main/java/com/ubb/events/persistence/UserRepository.java` shows the repository pattern; `RestServices/src/main/java/com/ubb/events/controllers/UserController.java` is the existing empty controller scaffold.
 - **Related completed tasks:** `T4-init-user-entity.md` records the preceding entity scaffold workflow and implementation pattern; `docs/entities/Organization.md` is the Organization field and relationship specification.
-- **Constraints / assumptions:** Backend is Java 21/Spring Boot with JPA, split into Model, Persistence, Business, and RestServices modules; tests use JUnit 5 and the Gradle wrapper. Organization fields in the entity specification are `organization_id`, `name`, nullable `description`, and nullable `logo_url`. As clarified by the user, `organization_id` is the identifier and there is no `orgCode`. Organizations are created through SQL and are read-only through the API; the exact read endpoint contract is not present here.
+- **Constraints / assumptions:** Backend is Java 21/Spring Boot with JPA, split into Model, Persistence, Business, and RestServices modules; tests use JUnit 5 and the Gradle wrapper. Organization fields in the entity specification are `organization_id`, `name`, nullable `description`, and nullable `logo_url`. As clarified by the user, `organization_id` is the identifier and there is no `organizationId`. Organizations are created through SQL and are read-only through the API; the exact read endpoint contract is not present here.
 
 ## Plan
 
@@ -58,13 +58,13 @@ Dependencies from the backlog: 1, 2, 3.
 
 ### Approach
 
-Implement the Organization persistence scaffold in the backend following the existing User entity structure and the fields in `docs/entities/Organization.md`. Add a JPA entity mapped to `public.organizations`, a repository, empty service interface and implementation class definitions, and a controller scaffold at `/api/organizations` that injects the service. `organization_id` is the generated identifier; no `orgCode` field or mapping is introduced. Relationships to memberships and events, business rules, and API operations remain outside this entity task.
+Implement the Organization persistence scaffold in the backend following the existing User entity structure and the fields in `docs/entities/Organization.md`. Add a JPA entity mapped to `public.organizations`, a repository, empty service interface and implementation class definitions, and a controller scaffold at `/api/organizations` that injects the service. `organization_id` is the generated identifier; no `organizationId` field or mapping is introduced. Relationships to memberships and events, business rules, and API operations remain outside this entity task.
 
 The service interface and implementation intentionally contain no operations yet; they provide only the class definitions and annotations needed for later work. The controller also contains no handler methods or endpoints because organizations are seeded through SQL and are read-only through the API.
 
 ### Steps
 
-1. **Model:** add the `Organization` JPA entity in the domain package, mapped to `public.organizations`, with an identity-generated `Long organization_id` primary key, required `name`, and nullable `description` and `logo_url`. Do not add `orgCode` or relationship mappings whose entity contracts are not part of this task.
+1. **Model:** add the `Organization` JPA entity in the domain package, mapped to `public.organizations`, with an identity-generated `Long organization_id` primary key, required `name`, and nullable `description` and `logo_url`. Do not add `organizationId` or relationship mappings whose entity contracts are not part of this task.
 2. **Persistence:** add the `OrganizationRepository` in the persistence package using the established Spring Data repository convention and `Organization`/`Long` types.
 3. **Business/service:** add an empty `OrganizationService` interface and an annotated `OrganizationServiceImpl` class implementing it. Do not add service methods, repository delegation, create/update/delete operations, validation, authorization, or other business rules.
 4. **API:** add an `OrganizationController` annotated as a REST controller, mapped to `/api/organizations`, with a constructor-injected `OrganizationService`. Define no request-mapping methods, endpoints, DTOs, or response handling.
@@ -83,7 +83,7 @@ The service interface and implementation intentionally contain no operations yet
 
 - **Acceptance criterion 1 (backlog implementation):** `OrganizationTest` verifies the entity annotations/table, generated `organization_id`, required `name`, and nullable `description`/`logo_url`; `OrganizationRepositoryTest` verifies persistence and retrieval using the configured test database; a service structure test verifies the empty `OrganizationService` interface and annotated implementation; a controller structure test verifies the `/api/organizations` root mapping and service constructor while confirming no handler methods are declared.
 - **Acceptance criterion 2 (relevant behavior and error cases):** persistence tests cover a missing required `name` and normal null optional fields. Service and controller have no operations to exercise, so no service delegation, authorization, or endpoint error tests apply; the tests verify that no methods/endpoints were introduced.
-- Tests must not introduce `orgCode`, write operations, relationship behavior, or endpoint contracts that are outside this task.
+- Tests must not introduce `organizationId`, write operations, relationship behavior, or endpoint contracts that are outside this task.
 
 ### Risks / open questions
 
@@ -116,7 +116,7 @@ in the user's own terms. Never on the agent's own initiative.
 
 | # | Phase (plan / implementation) | What was wrong | What was changed or rejected | Why |
 |---|-------------------------------|----------------|------------------------------|-----|
-| 1 | plan | The task said the Organization entity has a unique `orgCode`. | Replace `orgCode` with `organization_id`; there will be no `orgCode`. | As clarified by the user. |
+| 1 | plan | The task said the Organization entity has a unique `organizationId`. | Replace `organizationId` with `organization_id`; there will be no `organizationId`. | As clarified by the user. |
 | 2 | plan | The controller scope was unspecified. | Define only the controller class, root path, and service dependency; include no functions or endpoints. | As clarified by the user. |
 | 3 | plan | The service interface and implementation were planned with read methods and repository delegation. | Keep the service interface and implementation as empty class definitions with annotations only; remove service operations and delegation. | As clarified by the user. |
 

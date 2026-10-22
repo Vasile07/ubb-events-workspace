@@ -29,7 +29,7 @@ Create the backend task “Create an event with tasks” from the backlog. This 
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** EVT-01, EVT-06, ORGZ-01, LIF-01. **Depends on:** Init Membership entity, Organization-scoped authorization, Init Event entity, Init EventTask entity, Event lifecycle model.
-- `POST /api/organizations/{orgCode}/events`, for managers: create an event as a draft with validation (title, description, start and end date and time with the end after the start, location, capacity, registration information). Returns 201 with the event id and the draft status.
+- `POST /api/organizations/{organizationId}/events`, for managers: create an event as a draft with validation (title, description, start and end date and time with the end after the start, location, capacity, registration information). Returns 201 with the event id and the draft status.
 - Create written tasks on the event and assign them to members, rejecting a non-member of the organizing organization.
 
 Dependencies from the backlog: 7, 9, 19, 20, 22.

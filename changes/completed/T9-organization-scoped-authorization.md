@@ -31,7 +31,7 @@ Backlog specification:
 - **Type:** architecture. **Requirements:** ORG-05, EVT-06, R8. **Depends on:** Init Membership entity, Sign in.
 - Role model: MEMBER and MANAGER per organization, with the permissions derived from the role.
 - `@RequireOrgPermission` and `@NoOrgCheck` annotations.
-- A `HandlerInterceptor` registered on `/api/organizations/{orgCode}/**`: it denies methods without an annotation, reads `{orgCode}` from the URL, checks the membership and the required permission, and answers 403 for an unknown organization and for a non-member.
+- A `HandlerInterceptor` registered on `/api/organizations/{organizationId}/**`: it denies methods without an annotation, reads `{organizationId}` from the URL, checks the membership and the required permission, and answers 403 for an unknown organization and for a non-member.
 - A test that fails if any org-scoped controller method has neither annotation.
 - A test that a member of one organization cannot access a resource of another.
 - The organization is not stored in the JWT. Applied to all existing org-scoped endpoints, and it checks that no scaffold endpoint is left open.
@@ -53,7 +53,7 @@ Dependencies from the backlog: 7, 8.
 
 - **Relevant code:** `repos/ubb-events-backend/Model/src/main/java/com/ubb/events/domain/Membership.java` and `MembershipRole.java` define membership role and status; `Persistence/src/main/java/com/ubb/events/persistence/MembershipRepository.java` is currently a bare JPA repository; `Model/src/main/java/com/ubb/events/domain/Organization.java` has the numeric `organization_id`; `RestServices/src/main/java/com/ubb/events/security/JwtAuthenticationFilter.java` puts the authenticated user ID in the security principal; `OrganizationController.java` is currently an empty scaffold.
 - **Related completed tasks:** T7 Init Membership entity (`changes/completed/T7-init-membership-entity.md`) defines membership persistence. T2 Backend skeleton establishes the layered backend. T8 Sign in is merged into backend `master`; its task file remains in `changes/active/` pending the user's documentation cleanup.
-- **Constraints / assumptions:** This task touches the backend only; Java 21, Spring Boot, JPA, JUnit 5, Gradle wrapper, membership-based organization authorization, and `master` are defined by `context/project-context.md`. Backend repo is clean and synchronized on `master`. User decision: organization routes use `organizationId`; no `orgCode` field will be added. T9's use case and Drive/ADR reference remain unspecified; do not infer them.
+- **Constraints / assumptions:** This task touches the backend only; Java 21, Spring Boot, JPA, JUnit 5, Gradle wrapper, membership-based organization authorization, and `master` are defined by `context/project-context.md`. Backend repo is clean and synchronized on `master`. User decision: organization routes use `organizationId`; no `organizationId` field will be added. T9's use case and Drive/ADR reference remain unspecified; do not infer them.
 
 ## Plan
 
@@ -122,7 +122,7 @@ in the user's own terms. Never on the agent's own initiative.
 
 | # | Phase (plan / implementation) | What was wrong | What was changed or rejected | Why |
 |---|-------------------------------|----------------|------------------------------|-----|
-| 1 | plan | The plan used `orgCode` and treated the organization identifier as unresolved. | Use the existing numeric `Organization.id` as `{organizationId}`; do not add an `orgCode` field. | This is the user's confirmed identifier decision. |
+| 1 | plan | The plan used `organizationId` and treated the organization identifier as unresolved. | Use the existing numeric `Organization.id` as `{organizationId}`; do not add an `organizationId` field. | This is the user's confirmed identifier decision. |
 | 2 | plan | The plan did not define how membership status affects authorization. | The repository returns stored role/status; Business computes `ACTIVE` => stored role, `PENDING MANAGER` => effective `MEMBER`, and `PENDING MEMBER` => effective `NONE`. | This is the user's confirmed effective-role rule. |
 | 3 | plan | The plan assumed production endpoints were available for authorization testing. | Test the interceptor through a simple mock/test controller endpoint. | This is the user's requested test boundary. |
 | 4 | plan | The plan treated T8 as an unresolved dependency. | Assume T8 is merged into backend `master`; the user will later move its task file to completed. | This is the user's repository-state clarification. |

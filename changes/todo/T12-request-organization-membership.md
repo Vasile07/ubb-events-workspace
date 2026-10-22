@@ -30,7 +30,7 @@ Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORG-02. **Depends on:** Init User entity, Init Organization entity, Sign in.
 - Includes the `MembershipRequest` entity scaffold (entity, repository, service, controller).
-- `POST /api/organizations/{orgCode}/membership-requests`, no body (the user comes from the token). The endpoint is under the organization path but marked `@NoOrgCheck`, because the requester is not a member.
+- `POST /api/organizations/{organizationId}/membership-requests`, no body (the user comes from the token). The endpoint is under the organization path but marked `@NoOrgCheck`, because the requester is not a member.
 - Record a pending request and return 201 with the request id, organization and pending status.
 - Prevent a duplicate pending request, and tell a user who is already a member that no request is needed. A declined request does not block a new one.
 

@@ -29,7 +29,7 @@ Create the backend task “Delete event” from the backlog. This task addresses
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** EVT-05, EVT-06. **Depends on:** Organization-scoped authorization, Event lifecycle model, Register for event.
-- `DELETE /api/organizations/{orgCode}/events/{eventId}`, for managers: a soft delete (set the `deleted` flag), refused for an event that has already ended, with the reason. Returns 204.
+- `DELETE /api/organizations/{organizationId}/events/{eventId}`, for managers: a soft delete (set the `deleted` flag), refused for an event that has already ended, with the reason. Returns 204.
 - The event is returned with the status CANCELED by the public endpoints (unless it was a draft) and by the organization endpoints. It cannot be edited, published or registered for, and its chat and announcements become read-only.
 
 Dependencies from the backlog: 9, 22, 32.

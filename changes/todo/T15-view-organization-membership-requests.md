@@ -29,7 +29,7 @@ Create the backend task “View organization membership requests” from the bac
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORG-03, ORG-05. **Depends on:** Init Membership entity, Organization-scoped authorization, Request organization membership.
-- `GET /api/organizations/{orgCode}/membership-requests`, optionally filtered by status (pending by default), for managers only.
+- `GET /api/organizations/{organizationId}/membership-requests`, optionally filtered by status (pending by default), for managers only.
 
 Dependencies from the backlog: 7, 9, 12.
 
