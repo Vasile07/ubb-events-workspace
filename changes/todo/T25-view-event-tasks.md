@@ -29,7 +29,7 @@ Create the backend task “View event tasks” from the backlog. This task addre
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORGZ-02. **Depends on:** Organization-scoped authorization, Init EventTask entity, Create an event with tasks.
-- `GET /api/organizations/{orgCode}/events/{eventId}/tasks`, for members and managers: the tasks with their descriptions and assignees. Verify that the event belongs to the organization.
+- `GET /api/organizations/{organizationId}/events/{eventId}/tasks`, for members and managers: the tasks with their descriptions and assignees. Verify that the event belongs to the organization.
 - Never returned by the public event endpoints.
 
 Dependencies from the backlog: 9, 20, 23.

@@ -29,7 +29,7 @@ Create the backend task “View organization details” from the backlog. This t
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORG-06. **Depends on:** Init Organization entity, Init Membership entity, Request organization membership.
-- `GET /api/organizations/{orgCode}` for any signed-in user, marked `@NoOrgCheck`: the public details of one organization and the user's status (MEMBER, PENDING or NONE), so the user can decide before requesting.
+- `GET /api/organizations/{organizationId}` for any signed-in user, marked `@NoOrgCheck`: the public details of one organization and the user's status (MEMBER, PENDING or NONE), so the user can decide before requesting.
 - No members, requests or management data.
 
 Dependencies from the backlog: 6, 7, 12.

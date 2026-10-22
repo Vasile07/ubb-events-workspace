@@ -29,7 +29,7 @@ Create the backend task “View event follow-up” from the backlog. This task a
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** LIF-05. **Use case:** none, supports UC-13. **Depends on:** Organization-scoped authorization, Init FollowUp entity, Create event follow-up.
-- `GET /api/organizations/{orgCode}/events/{eventId}/follow-up`: the saved follow-up, for members and managers of the organization. Returns 404 when there is none.
+- `GET /api/organizations/{organizationId}/events/{eventId}/follow-up`: the saved follow-up, for members and managers of the organization. Returns 404 when there is none.
 
 Dependencies from the backlog: 9, 37, 38.
 

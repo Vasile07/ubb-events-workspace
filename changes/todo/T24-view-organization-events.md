@@ -29,7 +29,7 @@ Create the backend task “View organization events” from the backlog. This ta
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** EVT-01, EVT-02. **Use case:** none, needed by every organization-side use case. **Depends on:** Organization-scoped authorization, Create an event with tasks.
-- `GET /api/organizations/{orgCode}/events` and `.../{eventId}`, for members and managers, returning all events of the organization including drafts and CANCELED ones.
+- `GET /api/organizations/{organizationId}/events` and `.../{eventId}`, for members and managers, returning all events of the organization including drafts and CANCELED ones.
 - The event data only: the task list is a separate endpoint.
 
 Dependencies from the backlog: 9, 23.

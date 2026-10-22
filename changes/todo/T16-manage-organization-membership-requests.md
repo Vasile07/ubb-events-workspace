@@ -29,7 +29,7 @@ Create the backend task “Manage organization membership requests” from the b
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORG-03, ORG-05. **Depends on:** Init Membership entity, Organization-scoped authorization, Request organization membership.
-- `PATCH /api/organizations/{orgCode}/membership-requests/{requestId}` with the new status (accepted or declined), for managers only.
+- `PATCH /api/organizations/{organizationId}/membership-requests/{requestId}` with the new status (accepted or declined), for managers only.
 - Accepting creates the Membership with the MEMBER role in the same transaction as the decision.
 - Only pending requests can be decided, and an already processed request shows its current status.
 - The decision is recorded with the reviewer and the time.

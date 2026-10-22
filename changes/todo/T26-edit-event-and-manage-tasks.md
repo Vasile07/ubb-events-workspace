@@ -29,7 +29,7 @@ Create the backend task “Edit event and manage tasks” from the backlog. This
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** EVT-02, EVT-06, ORGZ-02. **Depends on:** Organization-scoped authorization, Init Registration entity, Event lifecycle model, Create an event with tasks.
-- `PUT /api/organizations/{orgCode}/events/{eventId}`: edit the event details with permission and state checks and validation. Capacity cannot drop below the active registrations. A canceled event cannot be edited. Any manager of the organization can edit.
+- `PUT /api/organizations/{organizationId}/events/{eventId}`: edit the event details with permission and state checks and validation. Capacity cannot drop below the active registrations. A canceled event cannot be edited. Any manager of the organization can edit.
 - Add, edit, reassign and remove tasks under `.../events/{eventId}/tasks` and `.../tasks/{taskId}`, rejecting a non-member assignee.
 
 Dependencies from the backlog: 9, 21, 22, 23.

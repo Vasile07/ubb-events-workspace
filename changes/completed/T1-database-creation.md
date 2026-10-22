@@ -31,7 +31,7 @@ Backlog specification:
 - Choose the database and set up a local instance.
 - Write the schema script (DDL), with no migration tool.
 - Write `docs/entities/<entity>.md` in the workspace for every entity: User, Organization, Membership, Category, Event, Registration, FollowUp, Message, Task, Announcement. Each spec lists the fields, types, constraints and relationships.
-- The organization identifier is `organization_id` (there is no separate `orgCode`). Membership `role` is intended to represent MEMBER or MANAGER; nullable `status` represents PENDING (approval not processed) or ACTIVE (active membership). Membership requests are represented by membership status; there is no separate MembershipRequest entity.
+- The organization identifier is `organization_id` (there is no separate `organizationId`). Membership `role` is intended to represent MEMBER or MANAGER; nullable `status` represents PENDING (approval not processed) or ACTIVE (active membership). Membership requests are represented by membership status; there is no separate MembershipRequest entity.
 - Events belong to an organization and a category. Event `status` is DRAFT or PUBLISHED for active events, and CANCELED for canceled/deleted events. The schema has a `date`, `start_time`, and nullable `end_time`; it has no separate `deleted` field or creator field.
 - Registration has event and user references. The current schema does not define a registration status or enforce one row per user and event.
 - Seed script for the application administrator: a few organizations, each with a first manager (a user with a hashed password and a MANAGER membership). It is reused by deployment and by the tests.

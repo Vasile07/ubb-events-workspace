@@ -29,7 +29,7 @@ Create the backend task “Promote organization member to manager” from the ba
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORG-04, ORG-05. **Depends on:** Init Membership entity, Organization-scoped authorization.
-- `PATCH /api/organizations/{orgCode}/members/{userId}/role` with `MANAGER`, for managers only. Promotion only: there is no demotion.
+- `PATCH /api/organizations/{organizationId}/members/{userId}/role` with `MANAGER`, for managers only. Promotion only: there is no demotion.
 - Reject users who are not members, and inform when the user is already a manager.
 
 Dependencies from the backlog: 7, 9.

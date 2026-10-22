@@ -29,7 +29,7 @@ Create the backend task “Publish event” from the backlog. This task addresse
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** EVT-03, EVT-06, LIF-02. **Depends on:** Organization-scoped authorization, Event lifecycle model, Create an event with tasks.
-- `PATCH /api/organizations/{orgCode}/events/{eventId}/publish`, for managers: validate the required details (including the end date and time), change the status from DRAFT to PUBLISHED, and return the updated event.
+- `PATCH /api/organizations/{organizationId}/events/{eventId}/publish`, for managers: validate the required details (including the end date and time), change the status from DRAFT to PUBLISHED, and return the updated event.
 - Reject incomplete events with what to correct, and reject an event that is already published or canceled.
 
 Dependencies from the backlog: 9, 22, 23.

@@ -29,7 +29,7 @@ Create the backend task “Publish event announcements” from the backlog. This
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORGZ-04. **Depends on:** Organization-scoped authorization, Init Announcement entity.
-- `POST /api/organizations/{orgCode}/events/{eventId}/announcements` with a title and content, for members and managers. Returns 201. Refused for a canceled event.
+- `POST /api/organizations/{organizationId}/events/{eventId}/announcements` with a title and content, for members and managers. Returns 201. Refused for a canceled event.
 - Deviates from ORGZ-04, which says the responsible manager publishes. UC-15 itself only describes reading.
 
 Dependencies from the backlog: 9, 44.

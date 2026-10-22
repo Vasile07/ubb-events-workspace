@@ -29,7 +29,7 @@ Create the backend task “View organization members” from the backlog. This t
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** ORG-04, ORG-05. **Depends on:** Init Membership entity, Organization-scoped authorization.
-- `GET /api/organizations/{orgCode}/members`: the members with their roles, for members and managers. Not public data.
+- `GET /api/organizations/{organizationId}/members`: the members with their roles, for members and managers. Not public data.
 
 Dependencies from the backlog: 7, 9.
 

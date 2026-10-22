@@ -29,7 +29,7 @@ Create the backend task “Create event follow-up” from the backlog. This task
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** LIF-04, LIF-05, ORGZ-06. **Depends on:** Organization-scoped authorization, Event lifecycle model, Init FollowUp entity.
-- `POST /api/organizations/{orgCode}/events/{eventId}/follow-up`: any manager of the organization can create it, only when the event is completed (end date and time has passed) and not canceled. Deviates from LIF-05 and ORGZ-06, which say the creator only.
+- `POST /api/organizations/{organizationId}/events/{eventId}/follow-up`: any manager of the organization can create it, only when the event is completed (end date and time has passed) and not canceled. Deviates from LIF-05 and ORGZ-06, which say the creator only.
 - Reject with the reason when the event is not completed or required information is missing.
 
 Dependencies from the backlog: 9, 22, 37.

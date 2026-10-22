@@ -29,7 +29,7 @@ Create the backend task “View event registrations” from the backlog. This ta
 Backlog specification:
 
 - **Type:** workflow. **Requirements:** REG-05, ORG-05. **Depends on:** Organization-scoped authorization, Register for event.
-- `GET /api/organizations/{orgCode}/events/{eventId}/registrations`: the registered users of an event, for members and managers of the organizing organization (403 for others). Verify that the event belongs to the organization.
+- `GET /api/organizations/{organizationId}/events/{eventId}/registrations`: the registered users of an event, for members and managers of the organizing organization (403 for others). Verify that the event belongs to the organization.
 - Cancelled registrations are not shown as registered. Empty list case. Visible fields follow the privacy policy. No export.
 
 Dependencies from the backlog: 9, 32.
