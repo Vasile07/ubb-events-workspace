@@ -7,7 +7,7 @@ Single source of truth for the project repositories. The `onboarding` skill read
 | Name | Local path | URL | Default branch |
 |------|------------|-----|----------------|
 | ubb-events-backend | `repos/ubb-events-backend/` | https://github.com/Vasile07/ubb-events-backend.git | `master` |
-| ub-events-frontend | `repos/ubb-events-frontend/` | https://github.com/Vasile07/ubb-events-frontend.git | `master` |
+| ubb-events-frontend | `repos/ubb-events-frontend/` | https://github.com/Vasile07/ubb-events-frontend.git | `master` |
 
 ## Setup
 
