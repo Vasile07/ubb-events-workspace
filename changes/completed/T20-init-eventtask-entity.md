@@ -12,9 +12,9 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 - **Type:** entity
 - **Owner:** Blaj Horatiu
 - **Requirement(s):** R7
-- **Use case(s):** 
+- **Use case(s):** UC-06 Create event; UC-07 Edit event and manage assigned tasks.
 - **Workflow:** entity
-- **Drive doc / ADR:** (link or section reference)
+- **Drive doc / ADR:** [Project requirements, use cases, architecture, ERD, API specification, and ADRs](https://docs.google.com/document/d/1yxuTw802yzVg7W2Efn1kozgppFnyh9umw7WgCmRutJ8/edit?tab=t.j04pz2q0fhhi#heading=h.3se70sg4uban)
 - **Repo(s):** backend
 - **Branch:** `T20-init-eventtask-entity`
 - **PR link(s):** https://github.com/Vasile07/ubb-events-backend/pull/16
@@ -196,7 +196,7 @@ in the user's own terms. Never on the agent's own initiative.
 - [x] **Gate 2:** approved for commit and push
 - [x] Committed and pushed
 - [x] PR created
-- [ ] PR reviewed
-- [ ] **Gate 3:** merged by user
-- [ ] Metadata complete (traceability)
-- [ ] Moved to `changes/completed/`
+- [x] PR reviewed
+- [x] **Gate 3:** merged by user
+- [x] Metadata complete (traceability)
+- [x] Moved to `changes/completed/`
