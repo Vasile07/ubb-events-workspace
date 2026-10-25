@@ -247,4 +247,4 @@ in the user's own terms. Never on the agent's own initiative.
 - [ ] PR reviewed
 - [ ] **Gate 3:** merged by user
 - [ ] Metadata complete (traceability)
-- [ ] Moved to `changes/completed/`
+- [x] Moved to `changes/completed/` (at Gate 2, by user preference; PR review and Gate 3 still pending)
