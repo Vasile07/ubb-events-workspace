@@ -34,6 +34,42 @@ Backlog specification:
 
 Dependencies from the backlog: 7, 9, 19, 20, 22.
 
+**Validation rules moved here from T28 (publish event).** Publishing only checks that the event starts in the future, so creating an event must enforce these (decided by Blaj Horatiu in T28, Human Corrections #2):
+
+- `title` is required and not blank.
+- `description` is required and not blank.
+- `date` and `startTime` are required, and the start (`date` + `startTime`) must be **in the future**, measured with the injected `java.time.Clock` (`ClockConfig`, Europe/Bucharest). Never call `LocalDateTime.now()` without the clock.
+- `endTime` is required and must be **after `startTime`** (same day; events can't cross midnight, because the schema has a single `date`).
+- `location` is required and not blank.
+- `capacity` is required and must be **> 0**.
+- Collect **every** problem as an `ErrorDetail(field, message)` and throw `BusinessRuleException("…", errors)` → 400, so the manager sees everything to correct at once. Use the field names `title`, `description`, `date`, `startTime`, `endTime`, `location`, `capacity`, the same names T28 used.
+- Put the checks in a reusable private method in `EventServiceImpl` (for example `validateEventDetails(...)`), because T26 (edit) must apply exactly the same rules.
+
+**Alignment with the work already done (T19, T20, T24, T25, T27–T30):**
+
+- **Entities:**
+  - `Event` (T19): organization `@ManyToOne`, `categoryId` (a temporary scalar `Long`; there is no Category entity yet), `title`, `description`, `date`, `startTime`, `endTime`, `location`, `capacity`, and `status` (`EventStatus`: DRAFT, PUBLISHED, CANCELED). There is **no** `deleted` flag and **no** creator field; CANCELED means canceled or deleted.
+  - `EventTask` (T20): `description` (required), `assignedUser` (`@ManyToOne User`, nullable), `event` (required). There is no title, due date or status.
+- **Where to put the code:**
+  - `POST "/{organizationId}/events"` goes into the existing `EventController` (root `/api/organizations`), with `@RequireOrgPermission(EffectiveOrgRole.MANAGER)` and OpenAPI `@Operation` + `@ApiResponses` (201, 400, 401, 403).
+  - The logic goes into `EventService`/`EventServiceImpl` (`@Transactional`).
+  - Return **201** with the existing `EventResponse` DTO; the status is always **DRAFT**.
+- **Tasks created with the event:** each assignee is optional. If an assignee is given, it must be an **ACTIVE member** of the event's organization (`MembershipRepository.findByUserIdAndOrganizationId` + `MembershipStatus.ACTIVE`). Otherwise return 400 with an `ErrorDetail` and save nothing (the whole creation is one transaction). Reuse `EventTaskRepository` and the `TaskAssigneeResponse` style (`{id, firstName, lastName}`, never email or password).
+- **Errors:** validation → `BusinessRuleException` (400, with an `ErrorDetail` list); wrong state → `ConflictException` (409); unknown or foreign event → `NotFoundException("Event not found")` (404). Authorization stays in the T9 interceptor; the JWT carries only the user id.
+- **Never expose tasks** on public endpoints (`GET /api/events` from T29/T30).
+- **Code style:**
+  - DTOs are `final` classes with Lombok `@Getter @AllArgsConstructor @EqualsAndHashCode` (no records); use constructor injection.
+  - Tests come first (TDD):
+    - Mockito service tests with a fixed `Clock` (`Clock.fixed(..., ZoneId.of("Europe/Bucharest"))`);
+    - `@DataJpaTest` repository tests that call `TestEntityManager.clear()` before reloading;
+    - MockMvc API tests with a real JWT (`JwtTokenService.issue(userId)`) and `@MockitoBean OrganizationAuthorizationService`;
+    - update the `EventControllerStructureTest`/`EventServiceStructureTest` classes when signatures change.
+- **Branching:** branch `T23-create-an-event-with-tasks` from `master` **after** backend PRs #28 → #29 → #30 are merged, because #28 brings the `Clock` bean and they all change `EventService`/`EventController`. If they're not merged yet, branch from `T30-filter-events` and ask the user. Merge with "Create a merge commit", never squash.
+- **Full suite:** `.\gradlew.bat --no-daemon --console=plain --continue clean test`. There are 3 **pre-existing** failures on `master` that are not T23's (`OrganizationServiceStructureTest` ×2, `OrganizationAuthorizationInterceptorTest.organizationScopedProductionHandlersDeclareAuthorization`).
+- **Keep it consistent for T22 and T26:**
+  - Leave the DRAFT → PUBLISHED rule in `publishEvent` (T28).
+  - An event counts as "ended" when `date` + `endTime` (or `startTime` if missing) is not after now (T30 ordering); T22 should derive COMPLETED with the same definition.
+
 ## Acceptance criteria
 
 <!-- Verifiable statements. Each one should be testable. -->
