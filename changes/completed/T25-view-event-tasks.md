@@ -14,7 +14,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 - **Requirement(s):** ORGZ-02
 - **Use case(s):** UC-07
 - **Workflow:** workflow
-- **Drive doc / ADR:** (link or section reference)
+- **Drive doc / ADR:** [Project requirements, use cases, architecture, ERD, API specification, and ADRs](https://docs.google.com/document/d/1yxuTw802yzVg7W2Efn1kozgppFnyh9umw7WgCmRutJ8/edit?tab=t.j04pz2q0fhhi#heading=h.3se70sg4uban)
 - **Repo(s):** backend
 - **Branch:** `T25-view-event-tasks`
 - **PR link(s):** https://github.com/Vasile07/ubb-events-backend/pull/26 (depends on https://github.com/Vasile07/ubb-events-backend/pull/25)
@@ -212,7 +212,7 @@ in the user's own terms. Never on the agent's own initiative.
 - [x] **Gate 2:** approved for commit and push
 - [x] Committed and pushed
 - [x] PR created
-- [ ] PR reviewed
-- [ ] **Gate 3:** merged by user
-- [ ] Metadata complete (traceability)
-- [x] Moved to `changes/completed/` (at Gate 2, by user preference; PR review and Gate 3 still pending)
+- [x] PR reviewed
+- [x] **Gate 3:** merged by user (backend #26)
+- [x] Metadata complete (traceability)
+- [x] Moved to `changes/completed/` (at Gate 2, by user preference)
