@@ -34,6 +34,24 @@ Backlog specification:
 
 Dependencies from the backlog: 9, 21, 22, 23.
 
+**Validation rules moved here from T28 (publish event).** Publishing only checks that the event starts in the future, so editing an event must enforce these on the updated values (decided by Blaj Horatiu in T28, Human Corrections #2). They're the same rules as T23 (create); **reuse T23's validation method** in `EventServiceImpl` rather than duplicating it.
+
+- `title` is required and not blank.
+- `description` is required and not blank.
+- `date` and `startTime` are required, and the start (`date` + `startTime`) must be **in the future**, measured with the injected `java.time.Clock` (`ClockConfig`, Europe/Bucharest).
+- `endTime` is required and must be **after `startTime`** (same day; events can't cross midnight).
+- `location` is required and not blank.
+- `capacity` is required and must be **> 0**, and (from the backlog) **not below the number of active registrations**.
+- Collect **every** problem as an `ErrorDetail(field, message)` and throw `BusinessRuleException("…", errors)` → 400, using the field names `title`, `description`, `date`, `startTime`, `endTime`, `location`, `capacity`.
+
+**Notes from the work already done:**
+
+- A **CANCELED** event can't be edited (backlog) → `ConflictException` (409), consistent with T28's "a canceled event cannot be published".
+- **Editing a PUBLISHED event:** these rules apply too, because publishing no longer re-validates the details. Whether a published event can still be edited at all is a T22/UC-07 decision; ask the user.
+- Task assignees must be **ACTIVE members** of the event's organization, the same check as T23.
+- Reassigning or removing tasks also covers the T27 limitation: tasks stay assigned to users who left the organization until someone reassigns or removes them.
+- **Code:** put it in the existing `EventController`/`EventService` (root `/api/organizations`) and `EventTaskController`/`EventTaskService`, with `@RequireOrgPermission(EffectiveOrgRole.MANAGER)`. An unknown or foreign event or task gives 404 (`NotFoundException`). Follow the same DTO, test and branching conventions as noted in T23.
+
 ## Acceptance criteria
 
 <!-- Verifiable statements. Each one should be testable. -->

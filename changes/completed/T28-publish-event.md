@@ -183,6 +183,21 @@ Plan additions from decision 2:
 - **Result:** the same focused command gives `BUILD SUCCESSFUL`, and all 34 tests in the focused classes pass (`ClockConfigTest` 1, `EventServiceTest` 14, `EventServiceStructureTest` 3, `EventControllerApiTest` 12, `EventControllerStructureTest` 4).
 - **Full suite of the affected repo:** `.\gradlew.bat --no-daemon --console=plain --continue clean test` gives `BUILD FAILED`: 206 tests, 3 failures, 0 errors, 0 skipped. The 3 failures are the **pre-existing** T13/T14 ones (`OrganizationServiceStructureTest` ×2, `OrganizationAuthorizationInterceptorTest.organizationScopedProductionHandlersDeclareAuthorization`). There are no new failures. The Spring context starts with the new `Clock` bean, so all `@SpringBootTest` classes pass.
 
+### Review change (Human Corrections #2: field validation moved to create/edit, publish keeps only the past check)
+
+- **Red (tests written before changing the code):**
+  - **Tests:** `EventServiceTest.publishOnlyChecksTheStartIsInTheFuture` (a future draft with a blank title and description, an end time before the start, a blank location and capacity 0 must be published) and `EventServiceTest.pastStartIsTheOnlyPublishValidationError` (a past and incomplete draft must produce only the `date` error).
+  - **Removed tests:** `rejectsIncompleteDraftListingEveryFieldToCorrect`, `rejectsEndTimeNotAfterStartTime`, `rejectsNonPositiveCapacity` and `rejectsBlankTitleOrDescription` encoded the rules the user moved out of publishing. Those rules are now listed as requirements in T23 and T26.
+  - **Command:** `.\gradlew.bat --no-daemon --console=plain --continue :Business:test --tests "com.ubb.events.implementation.EventServiceTest"`
+  - **Result:** `BUILD FAILED`, everything compiled, 2 of 12 failed:
+    - `pastStartIsTheOnlyPublishValidationError`: `AssertionFailedError: expected: <[date]> but was: <[date, endTime, location, capacity]>`;
+    - `publishOnlyChecksTheStartIsInTheFuture`: `BusinessRuleException: Event is not ready to be published`.
+  - **Failure reason:** behavioral. Publishing still applied the field validation that the user moved to create and edit.
+- **Implementation:** `validateForPublication` keeps only "`date` + `startTime` must be after now (Clock)". The title, description, end time, location and capacity checks were removed. `EventControllerApiTest.incompleteDraftReturnsBadRequestWithFieldErrors` became `pastEventReturnsBadRequestWithDateError` (same 400 shape, now with the only error publishing can return). The OpenAPI 400 description was updated.
+- **Green:** the focused command over `ClockConfigTest`, `EventServiceTest`, `EventServiceStructureTest`, `EventControllerApiTest` and `EventControllerStructureTest` gives `BUILD SUCCESSFUL`: 32 tests pass (1 + 12 + 3 + 12 + 4).
+- **Full suite (branch `T28-publish-event`):** `.\gradlew.bat --no-daemon --console=plain --continue clean test` gives 204 tests, 3 failures, 0 errors. Only the 3 pre-existing T13/T14 failures remain.
+- **Propagation:** after Gate 2, this commit is merged (not rebased) into `T29-discover-events` and `T30-filter-events`, and the tests are run again on each branch.
+
 ## Human Corrections
 
 <!--
@@ -194,6 +209,7 @@ in the user's own terms. Never on the agent's own initiative.
 | # | Phase (plan / implementation) | What was wrong | What was changed or rejected | Why |
 |---|-------------------------------|----------------|------------------------------|-----|
 | 1 | plan | The plan proposed not checking whether the event date is in the past ("UC-06 leaves date rules open"). | The user asked: "check so that an event can't be created in the past". T28 now rejects publishing an event whose date and start time are not in the future (400, error on `date`), using an injected `Clock` (Europe/Bucharest). Enforcement at creation is noted for T23. | Events in the past must not be accepted. |
+| 2 | implementation (review change) | Publishing validated all the event details (title, description, end time after start, location, capacity > 0). The user wanted those checks where the data is entered. | The user asked: "extract all the validation from validateForPublication except for 'we can't publish if start time < current time'; all the others should sit in the create and update". Publishing now only rejects an event that doesn't start in the future. The removed rules were added as requirements to T23 (create) and T26 (edit) in `changes/todo/`. | Field validation belongs to creating and editing an event; publishing only adds the time check. |
 
 ## Design decisions, alternatives, limitations
 
@@ -205,9 +221,9 @@ in the user's own terms. Never on the agent's own initiative.
   - `EventService.publishEvent` is `@Transactional` and works in this order:
     1. 404 if the event isn't in this organization;
     2. state check: PUBLISHED or CANCELED → **409** (`ConflictException`, consistent with memberships);
-    3. field validation that collects **every** problem as an `ErrorDetail(field, message)` → **400** "Event is not ready to be published" with the full list (UC-08: "indicates what to correct");
+    3. the start-in-the-future check → **400** "Event is not ready to be published" with an `ErrorDetail("date", "Event must start in the future")`;
     4. DRAFT → PUBLISHED, saved and returned as `EventResponse`.
-  - Required for publication (user decision): title and description not blank, date, start time, end time after the start time, location not blank, capacity > 0.
+  - **Field validation moved out of publishing** (Human Correction #2): the user first decided that title, description, end time after start, location and capacity > 0 are required for publication. They then moved those checks to **create (T23)** and **edit (T26)**, where the data is entered. Publishing keeps only the past-date check. The rules are listed as requirements in `changes/todo/T23-…` and `changes/todo/T26-…`.
   - **No events in the past** (Human Correction #1): the start (`date` + `startTime`) must be strictly in the future, measured with an injected `java.time.Clock` (`ClockConfig`, `Europe/Bucharest`, because event times are Cluj local times). The tests use a fixed clock for deterministic boundary cases (one minute later is accepted; earlier today and "exactly now" are rejected).
   - The transition rule lives in `EventServiceImpl` because T22 (lifecycle) doesn't exist yet; T22 can extract it.
 - **Alternatives considered:**
@@ -216,7 +232,8 @@ in the user's own terms. Never on the agent's own initiative.
   - `LocalDateTime.now()` without a clock: rejected, because it isn't testable and depends on the server time zone (UTC in Docker).
   - Not checking past dates: changed by the user.
 - **Limitations:**
-  - The past-date rule is only enforced at **publication**. Creating or editing a draft in the past is still possible until T23 (create) and T26 (edit) add the same check; this is noted for Karina in the PR.
+  - **Publishing trusts create and edit for the field rules.** Until T23 and T26 enforce them, a draft with a blank title, a missing end time, location or capacity, or an end before the start can be published. The backlog's "reject incomplete events with what to correct" is now covered only through T23/T26 plus the past-date check.
+  - The past-date rule is enforced at **publication**. Creating or editing a draft in the past is still possible until T23 (create) and T26 (edit) add the same check (it's listed in their todo files).
   - Events can't cross midnight, because the schema has a single `date` (user-confirmed).
   - The API tests mock the service, as in the existing `*ControllerApiTest` classes; the rules are covered by `EventServiceTest`.
   - The full suite still has the 3 pre-existing T13/T14 failures.
@@ -228,8 +245,8 @@ in the user's own terms. Never on the agent's own initiative.
 - [x] **Gate 1:** plan approved by user
 - [x] Tests written and confirmed failing (red)
 - [x] Implementation done, tests passing (green)
-- [x] Implementation reviewed by user
-- [x] **Gate 2:** approved for commit and push
+- [x] Implementation reviewed by user (including review change #2)
+- [x] **Gate 2:** approved for commit and push (confirmed again for review change #2)
 - [x] Committed and pushed
 - [x] PR created
 - [ ] PR reviewed
