@@ -163,6 +163,21 @@ User answers before Gate 1:
 4. **Unknown `organizationId`:** an empty list (200), not 404. **Confirmed by the user.**
 5. **The T29 repository query** (`findAllByStatusOrderByDateAscStartTimeAsc`): the user asked why it becomes unused. Answer: with Specifications, `discoverEvents` always calls `findAll(isPublished() + optional criteria, Sort.by("date", "startTime"))`. `isPublished()` and the sort replace exactly what the T29 query did, so nothing calls the old method and keeping it would be dead code. Keeping it as a "no filters" shortcut would mean two code paths and duplicate tests. Its behavior stays covered by `withoutCriteriaReturnsAllPublishedEventsChronologically`. **User decision: remove it.**
 
+**Plan amendment after Gate 2 (review change, Human Corrections #2): upcoming first, then completed**
+
+A request from a teammate (Vasile Irimieș), relayed and approved by the user: "sort by date, first the upcoming ones sorted by date, then the completed ones sorted by date". The user's decisions:
+1. **Completed events are ordered most recent first** (descending). Upcoming events are ascending (the next one first).
+2. **"Completed" means** `date` + `endTime` is not after now (or `date` + `startTime` when `endTime` is missing). An event that is running counts as upcoming until its end. This is the same definition T22 should use when it derives COMPLETED. The status label is unchanged (still `PUBLISHED`) until T22.
+3. **It is done in T30**, as a review change on the open backend PR #30.
+
+- **Approach:** the database query (filters plus `Sort.by("date", "startTime")`) stays as it is. `EventServiceImpl.discoverEvents` then splits the mapped result with the injected `Clock` (from T28) into upcoming (kept in ascending order) and completed (reversed, so most recent first), and returns upcoming followed by completed. This is done in Java rather than with an SQL `ORDER BY CASE`, because "ended" depends on the current time (testable through `Clock`), the list isn't paginated, and a `CASE` ordering inside Specifications would be fragile.
+- **Files:** `Business/.../implementation/EventServiceImpl.java` and `Business/src/test/.../implementation/EventServiceTest.java`.
+- **Tests, written first:**
+  - `EventServiceTest.ordersUpcomingFirstThenCompletedMostRecentFirst`, with the fixed clock 2026-11-01 10:00 Cluj: an event running now and a future event first (ascending), then an event that ended earlier today, then past events (descending).
+  - `EventServiceTest.usesStartTimeWhenEndTimeIsMissing`.
+  - `EventServiceTest.eventEndingExactlyNowIsCompleted`.
+- **Gate 2** needs to be confirmed again for this change before it's committed.
+
 ## Test log
 
 <!-- Written by the implementer. Red-green evidence. -->
@@ -217,6 +232,22 @@ User answers before Gate 1:
 - **Result:** the focused command gives `BUILD SUCCESSFUL`, and all 47 tests in the focused classes pass (`EventRepositoryTest` 13, `EventServiceTest` 21, `EventServiceStructureTest` 4, `DiscoverEventControllerApiTest` 7, `DiscoverEventControllerStructureTest` 2).
 - **Full suite:** `.\gradlew.bat --no-daemon --console=plain --continue clean test` gives 231 tests, 3 failures, 0 errors. Only the 3 pre-existing T13/T14 failures remain.
 
+### Review change (Human Corrections #2: upcoming first, then completed most recent first)
+
+- **Red (tests written before changing the code; the existing purely chronological implementation served as the baseline):**
+  - **Tests:** `EventServiceTest.ordersUpcomingFirstThenCompletedMostRecentFirst`, `usesStartTimeWhenEndTimeIsMissing`, `eventEndingExactlyNowIsCompleted`, with the fixed clock 2026-11-01 10:00 Europe/Bucharest.
+  - **Command:** `.\gradlew.bat --no-daemon --console=plain --continue :Business:test --tests "com.ubb.events.implementation.EventServiceTest"`
+  - **Result:** `BUILD FAILED`, everything compiled, and the 3 new tests failed on 24 tests completed:
+    - `ordersUpcomingFirstThenCompletedMostRecentFirst`: `AssertionFailedError: expected: <[4, 5, 6, 3, 2, 1]> but was: <[1, 2, 3, 4, 5, 6]>`;
+    - `usesStartTimeWhenEndTimeIsMissing`: `expected: <[2, 1]> but was: <[1, 2]>`;
+    - `eventEndingExactlyNowIsCompleted`: `expected: <[2, 1]> but was: <[1, 2]>`.
+
+    The other 21 tests passed.
+  - **Failure reason:** behavioral. The service returned the plain chronological order, without splitting the results into upcoming and completed.
+- **Implementation:** `EventServiceImpl.discoverEvents` keeps the database query and sort. It then splits the events with `hasEnded(event, LocalDateTime.now(clock))`, where "ended" means `date` + (`endTime`, or `startTime` if missing) is not after now. Upcoming events keep the ascending order, completed events are reversed (most recent first), and the result is upcoming followed by completed.
+- **Green:** the focused command gives `BUILD SUCCESSFUL`, and all 50 tests in the focused classes pass (`EventRepositoryTest` 13, `EventServiceTest` 24, `EventServiceStructureTest` 4, `DiscoverEventControllerApiTest` 7, `DiscoverEventControllerStructureTest` 2).
+- **Full suite:** `.\gradlew.bat --no-daemon --console=plain --continue clean test` gives 234 tests, 3 failures, 0 errors. Only the 3 pre-existing T13/T14 failures remain.
+
 ## Human Corrections
 
 <!--
@@ -228,6 +259,7 @@ in the user's own terms. Never on the agent's own initiative.
 | # | Phase (plan / implementation) | What was wrong | What was changed or rejected | Why |
 |---|-------------------------------|----------------|------------------------------|-----|
 | 1 | implementation | The implementation moved the criteria composition into `EventSpecifications.forDiscovery(filter)` in Persistence, a deviation from the approved plan where the service combines the criteria. | The user said "keep it in the service". `forDiscovery` was removed; `EventServiceImpl` now composes `isPublished()` with the given criteria (skipping a blank search and null values) and calls `findAll(spec, sort)`. The composition is unit-tested in `EventServiceTest` with `Mockito.mockStatic(EventSpecifications.class)`, verifying which specifications are requested. | Follow the approved plan: business decisions about which criteria apply stay in the service layer. |
+| 2 | implementation (review change) | The discovery list was purely chronological, so past events appeared before upcoming ones. A teammate asked: "sort by date, first the upcoming ones sorted by date, then the completed ones sorted by date". | The user approved it in T30: upcoming events first (by date ascending), then completed events **most recent first** ("1 desc"). "Completed" means the end (`date` + `endTime`, or `startTime` if missing) is not after now ("2 ok"). Implemented in the service with the injected `Clock`. | Participants should see what is coming next before past events. |
 
 ## Design decisions, alternatives, limitations
 
@@ -248,7 +280,9 @@ in the user's own terms. Never on the agent's own initiative.
   - Derived query names: too many combinations.
   - Keeping the T29 query as a no-filter shortcut: rejected by the user (two code paths).
   - 404 for an unknown organization: rejected by the user.
+  - **Order (review change, Human Corrections #2):** upcoming events first (date and start time ascending), then completed events most recent first. An event counts as completed when `date` + `endTime` (or `startTime` if missing) is not after now (injected `Clock`, Europe/Bucharest). An event that is running counts as upcoming. The split is done in Java after the database query, because "ended" depends on the current time and there's no pagination. **T22 should use the same "ended" definition** when it derives COMPLETED; the status label stays `PUBLISHED` until then.
 - **Limitations:**
+  - The order isn't purely chronological anymore, so a client that wants a different order must sort itself. The split happens in memory, which is fine without pagination but would need to move into SQL if pagination is added.
   - The search is a plain substring `LIKE`; there is no accent folding (for example, "Cluj" vs "Clúj") and no full-text ranking.
   - There is no pagination (backlog).
   - The date filter uses the event `date` only, not the times.
@@ -261,8 +295,8 @@ in the user's own terms. Never on the agent's own initiative.
 - [x] **Gate 1:** plan approved by user
 - [x] Tests written and confirmed failing (red)
 - [x] Implementation done, tests passing (green)
-- [x] Implementation reviewed by user
-- [x] **Gate 2:** approved for commit and push
+- [x] Implementation reviewed by user (including review change #2)
+- [x] **Gate 2:** approved for commit and push (confirmed again for review change #2)
 - [x] Committed and pushed
 - [x] PR created
 - [ ] PR reviewed
