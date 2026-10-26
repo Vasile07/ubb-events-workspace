@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T79
 - **Type:** deployment
-- **Owner:** 
+- **Owner:** Karina Kentsch
 - **Requirement(s):** 
 - **Use case(s):** UC-05
 - **Workflow:** 

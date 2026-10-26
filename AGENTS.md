@@ -19,6 +19,14 @@ Before taking action, classify the user's request.
 
 These are mandatory routes, not suggestions. Do not improvise an equivalent workflow. For example, “I want to start working on task T12” must use `skills/start-working/SKILL.md` before any task or repository changes are made.
 
+## Shared Figma design reference
+
+- Canonical design file: [UBB Events – Design](https://www.figma.com/design/wbXB4CAMaecbLaKUd4slWq/UBB-Events-%E2%80%93-Design).
+- The file has three pages: `Design System` (`0:1`), `Student Screens` (`1:4`), and `Organization Screens` (`1:5`). Use the page and frame named in the active task description; do not choose a visually similar frame by guesswork.
+- If a task names a page/frame but omits node IDs, use the Figma plugin's `get_metadata` to inspect the named page and identify the matching frame. With no node ID, `get_metadata` lists the page IDs. Ask the user if a task's frame name is absent or ambiguous.
+- Before the first Figma file read or edit for a task, create one Figma session for this file and reuse its session ID for that task's file calls.
+- For design-to-code work, read the `figma-design-to-code` skill before calling `get_design_context`; include `figma-design-to-code` in its `skillNames` and request the design screenshot as the visual target. Before calling `use_figma`, read the `figma-use` skill. Use the Figma plugin rather than relying only on a browser preview.
+
 ## 2. Workspace layout
 
 ```

@@ -10,7 +10,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 - **Task ID:** T73
 - **Type:** deployment
-- **Owner:** 
+- **Owner:** Brudea Armand
 - **Requirement(s):** 
 - **Use case(s):** UC-07, UC-08, UC-17
 - **Workflow:** 
