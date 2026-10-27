@@ -156,3 +156,11 @@ If something is missing, list what is missing instead of moving the task.
 - Prefer the simplest solution that satisfies the acceptance criteria.
 - Be explicit about limitations and risks. Do not hide uncertainty.
 - Keep responses short and concrete. Reference files and sections instead of repeating their content.
+
+## Frontend development and preview
+
+- Run frontend commands from `repos/ubb-events-frontend`.
+- Start the frontend with `npm run dev` and wait for Vite's ready message. The configured port is `5173` (`strictPort: true`).
+- When starting the frontend server in a session, post the preview URL printed by Vite in the chat. For browser visual checks in this workspace, use Vite's `Network` URL (for example, `http://192.168.1.146:5173/`) when `localhost` is not reachable from the preview browser. Keep the server running during the check and stop the server you started when finished.
+- Cypress uses `http://127.0.0.1:5173` as its base URL. Start Vite in a separate terminal before running `npm run cypress:run`.
+- Other frontend checks, when relevant to the task, are `npm run typecheck`, `npm run lint`, and `npm run build`.
