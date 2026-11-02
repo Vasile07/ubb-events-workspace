@@ -30,7 +30,7 @@ Source task 25 — Event workspace shell
 **Description:** Build the event workspace header and tab bar shared by the frames `Org – Event: Tasks` (15:412), `Registrations` (15:589), `Organizer chat` (15:822), `Announcements` (16:431) and `Follow-up` (16:591): back link to events, title with status badge, meta row (date and time range, location, number of places) and the underline tabs Tasks / Registrations / Organizer chat / Announcements / Follow-up that map to the nested routes.
 Data from `GET /api/organizations/{organizationId}/events/{eventId}` (verify the event belongs to the organization, otherwise 404).
 The actions slot is filled by task 26. For canceled events show a read-only banner; for completed events keep Follow-up enabled.
-**Depends on:** 5, 21.
+**Depends on:** T52 — Base UI components: layout and data display; T68 — Organization workspace shell.
 
 ## Acceptance criteria
 

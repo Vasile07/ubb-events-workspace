@@ -31,7 +31,7 @@ Source task 7 — Event card and event status logic
 Create the pure function `getEventBadge(event, registrationStatus)` returning label and tone: Open (Success), Few spots left (Warning, when ≤10% or ≤5 places remain), Full (Danger), Registered (Info), Completed (Info), Canceled (Danger).
 Cover precedence rules in unit tests (e.g. Canceled beats Full; Registered beats Open).
 Format dates as "Sat, 14 Nov · 18:00" with a shared `formatEventDate` helper.
-**Depends on:** 4, 5.
+**Depends on:** T51 — Base UI components: actions and form fields; T52 — Base UI components: layout and data display.
 
 ## Acceptance criteria
 

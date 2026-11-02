@@ -32,7 +32,7 @@ Client validation: both fields required, valid email format. The password is onl
 Call `login`; show backend errors (invalid credentials) as the Error state on the form and a toast for network failures.
 After success redirect to the originally requested route or `/events`.
 Disable the button with a loading state while submitting.
-**Depends on:** 4, 5, 8, 9.
+**Depends on:** T51 — Base UI components: actions and form fields; T52 — Base UI components: layout and data display; T55 — Authentication context provider; T56 — Routing and route guards.
 
 ## Acceptance criteria
 

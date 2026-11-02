@@ -37,7 +37,7 @@ Actions:
 Both update the UI optimistically and invalidate the event, my-registrations and discover queries; show success/error toasts.
 Handle 409 (already registered, show the current status), full, started, completed and canceled events by disabling the button with an explanatory text.
 When registered, also render the Announcements card from `GET /api/events/{id}/announcements` (hide on 403, empty state when none).
-**Depends on:** 5, 6, 7, 10.
+**Depends on:** T52 — Base UI components: layout and data display; T53 — Feedback components: toast, empty state, skeleton, error state; T54 — Event card and event status logic; T57 — App shell and top navigation.
 
 ## Acceptance criteria
 

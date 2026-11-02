@@ -31,7 +31,7 @@ Source task 17 — My tasks screen
 Data from `GET /api/users/me/tasks`; group by event and sort by event start.
 The workspace button goes to `/org/:organizationId/events/:eventId/tasks`.
 Add loading (skeleton cards), an empty state ("No tasks assigned yet", Users or Calendar icon) and an error state.
-**Depends on:** 6, 10.
+**Depends on:** T53 — Feedback components: toast, empty state, skeleton, error state; T57 — App shell and top navigation.
 
 ## Acceptance criteria
 

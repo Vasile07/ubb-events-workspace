@@ -25,20 +25,9 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 <!-- What needs to be done and why. Which user need does it address? -->
 
-Source task 2 — Design tokens and global styles
+Source task 2 — Design tokens and global styles
 
-**Description:** Implement the design tokens so no component hardcodes colors, sizes or fonts.
-Figma: page `Design System`, frame `Foundations` (4:40) and the variable collections `Primitives`, `Semantic`, `Spacing & Radius` (read them through `get_variable_defs`).
-Include:
-- the blue palette (#223A5E, #355982, #4D79A8, #6E9ECC, #9FC0E3, #D0E1F2, #F3F8FD)
-- semantic tokens (bg/page, bg/surface, bg/brand, text/primary|secondary|muted|inverse, border/default|strong|focus, accent, status success/warning/danger fg+bg)
-- spacing (4–48)
-- radii (8, 12, 16, 24, pill)
-- shadows `Shadow/Card` and `Shadow/Raised`
-- font Plus Jakarta Sans (400–800) with the 10 text styles (Display/Hero, Heading H1–H3, Body Large/Default/Strong, Caption Default/Strong, Label/Button).
-
-Add a global reset and set the page background to `bg/page`.
-Done when a demo page side by side with the Foundations frame is visually identical.
+**Depends on:** none.
 
 ## Acceptance criteria
 

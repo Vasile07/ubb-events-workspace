@@ -35,7 +35,7 @@ Actions:
 - NONE → "Request membership" calling `POST /api/organizations/{organizationId}/membership-requests` (no body), then switch the card to Pending without a reload and show a toast; handle an already-pending 409 gracefully.
 
 The search filters by organization name only, on the client. Equal-height cards with the action pinned to the bottom. Loading, empty ("No organizations match") and error states.
-**Depends on:** 6, 10.
+**Depends on:** T53 — Feedback components: toast, empty state, skeleton, error state; T57 — App shell and top navigation.
 
 ## Acceptance criteria
 

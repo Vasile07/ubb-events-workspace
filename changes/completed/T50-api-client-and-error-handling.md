@@ -37,7 +37,7 @@ Generate or hand-write TypeScript DTO types from the OpenAPI spec for every endp
 Configure TanStack Query defaults (no retry on 4xx, 1 retry on network errors, sensible stale time).
 Add tests for error parsing (including nested field paths) and for the 401 handler behavior.
 Done when `GET /api/organizations` is called through the client, a forced 400 shows up as a typed `ApiError` and a forced 401 calls a test handler.
-**Depends on:** 1.
+**Depends on:** T48 — Project setup.
 
 ## Acceptance criteria
 

@@ -35,7 +35,7 @@ Client validation:
 
 Show the Error state on the email field for "email already registered" (409, as drawn in the frame), map other validation errors from `ApiError.fieldErrors` to the matching fields (including `firstName`, `lastName`, `password`) and use a toast for network errors.
 On success sign the user in (or redirect to `/login`) and go to `/events`. Disable the button with a loading state while submitting.
-**Depends on:** 4, 5, 8, 9.
+**Depends on:** T51 — Base UI components: actions and form fields; T52 — Base UI components: layout and data display; T55 — Authentication context provider; T56 — Routing and route guards.
 
 ## Acceptance criteria
 

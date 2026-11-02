@@ -36,7 +36,7 @@ Actions:
 - no actions on completed events
 
 Empty state per tab, see frame `My registrations – empty` (48:829, EmptyState Ticket with "Discover events"). Loading and error states.
-**Depends on:** 6, 15.
+**Depends on:** T53 — Feedback components: toast, empty state, skeleton, error state; T62 — Event details screen (participant).
 
 ## Acceptance criteria
 

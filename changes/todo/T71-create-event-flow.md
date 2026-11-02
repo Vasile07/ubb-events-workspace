@@ -31,7 +31,7 @@ Source task 24 — Create event flow
 On submit call `POST /api/organizations/{organizationId}/events` once, sending the event data together with the list of tasks. The endpoint is atomic: either the event and all its tasks are created, or nothing is created and the backend returns the list of errors. There is no partial state and no retry mechanism: on error keep the form as it is, show every returned error on the matching field (event fields and task rows, using task 23), let the user correct them and submit again.
 Buttons: "Save as draft" (primary) and Cancel (confirmation modal when the form is dirty).
 On success the event is a DRAFT: show a toast and redirect to the event workspace (Tasks tab) where it can be published.
-**Depends on:** 23.
+**Depends on:** T70 — Event form component.
 
 ## Acceptance criteria
 

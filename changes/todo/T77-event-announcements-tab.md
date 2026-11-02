@@ -30,7 +30,7 @@ Source task 30 — Event announcements tab
 **Description:** Implement page `Organization Screens`, frame `Org – Event: Announcements` (16:431): list of announcements (avatar, author with role, time, title, content, newest first) and the "New announcement" composer card (title, content, Publish).
 Create with `POST .../events/{eventId}/announcements` (members and managers), read with `GET /api/events/{eventId}/announcements`.
 Validate required title and content, refresh the list and clear the form after publishing, show a toast, hide the composer for canceled events and show an empty state when there are none. Reuse the `AnnouncementItem` component built for the participant view in task 15.
-**Depends on:** 15, 25.
+**Depends on:** T62 — Event details screen (participant); T72 — Event workspace shell.
 
 ## Acceptance criteria
 

@@ -31,7 +31,7 @@ Source task 29 — Event organizer chat tab
 Data from `GET` and `POST .../events/{eventId}/messages`.
 Poll every ~5 s (`refetchInterval`) and keep the scroll at the bottom unless the user scrolled up; trim and validate text (not empty, backend max length with a counter near the limit); Enter sends, Shift+Enter adds a line.
 Disable the composer for canceled events and show an empty state when there are no messages. Keep the data layer isolated so polling can be swapped for WebSocket later.
-**Depends on:** 25.
+**Depends on:** T72 — Event workspace shell.
 
 ## Acceptance criteria
 

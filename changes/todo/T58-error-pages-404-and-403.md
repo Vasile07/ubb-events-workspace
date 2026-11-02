@@ -30,7 +30,7 @@ Source task 11 — Error pages: 404 and 403
 **Description:** Implement Figma page `Student Screens`, frames `404 – Page not found` (48:876) and `403 – No access` (48:914): large faded code, title, description, decorative circles and two buttons (Back to discover, Go back / My organizations).
 Use them as the router's catch-all 404 and as the target of `RequireOrgManager`/`RequireOrgMember` failures and API 403 responses on page-level queries.
 Keep the navbar visible when the user is authenticated.
-**Depends on:** 6, 9, 10.
+**Depends on:** T53 — Feedback components: toast, empty state, skeleton, error state; T56 — Routing and route guards; T57 — App shell and top navigation.
 
 ## Acceptance criteria
 

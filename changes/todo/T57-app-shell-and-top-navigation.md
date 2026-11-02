@@ -32,7 +32,7 @@ The active link follows the current route (the `None` variant is used on the pro
 The Workspace link must appear only when the user has at least one membership: with one organization it goes to `/org/:organizationId/events`, with several it opens a small picker.
 The bell can stay non-functional (no notifications in scope) but must render.
 Content is centered with 80px horizontal padding on desktop.
-**Depends on:** 5, 8, 9.
+**Depends on:** T52 — Base UI components: layout and data display; T55 — Authentication context provider; T56 — Routing and route guards.
 
 ## Acceptance criteria
 
