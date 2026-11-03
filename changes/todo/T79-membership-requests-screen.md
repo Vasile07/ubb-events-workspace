@@ -31,7 +31,7 @@ Source task 32 — Membership requests screen
 Data from `GET /api/organizations/{organizationId}/membership-requests?status=...`; actions with `PATCH .../membership-requests/{requestId}` (accepted | declined) with per-row loading state.
 After an action update the row/tab counts, the sidebar pending badge and the members query, and show a toast.
 Managers only (guard from task 9). Empty state per tab ("No pending requests") and error state.
-**Depends on:** 21.
+**Depends on:** T68 — Organization workspace shell.
 
 ## Acceptance criteria
 

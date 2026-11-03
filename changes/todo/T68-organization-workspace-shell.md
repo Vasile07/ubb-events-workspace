@@ -30,7 +30,7 @@ Source task 21 — Organization workspace shell
 **Description:** Build the workspace layout used by every frame on page `Organization Screens`: the `Workspace sidebar` from page `Design System` (3:299) with the organization header (icon, name, category, role badge Manager/Member), items Events / Membership requests (with pending count badge) / Members and "Back to discover", next to a scrollable main area (48px horizontal, 40px vertical padding).
 Load the organization from the route `/org/:organizationId` via `GET /api/organizations/{organizationId}` and the role from the auth context. Hide "Membership requests" for plain members.
 The pending count comes from `GET /api/organizations/{organizationId}/membership-requests` and refreshes after accept/decline. The sidebar stretches to the full height of the content.
-**Depends on:** 9, 10.
+**Depends on:** T56 — Routing and route guards; T57 — App shell and top navigation.
 
 ## Acceptance criteria
 

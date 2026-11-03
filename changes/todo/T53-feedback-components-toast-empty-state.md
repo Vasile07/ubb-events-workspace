@@ -34,7 +34,7 @@ Source task 6 — Feedback components: toast, empty state, skeleton, error state
 - `ErrorState` (danger icon, title, description, "Try again" button, error code caption; see frame `Discover events – error` 48:757) and a React `ErrorBoundary` that renders it.
 
 Done when each component has a demo. Every screen task below must implement its own loading, empty and error states with these components.
-**Depends on:** 4, 5.
+**Depends on:** T51 — Base UI components: actions and form fields; T52 — Base UI components: layout and data display.
 
 ## Acceptance criteria
 

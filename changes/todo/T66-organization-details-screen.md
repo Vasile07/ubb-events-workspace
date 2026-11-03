@@ -29,7 +29,7 @@ Source task 19 — Organization details screen
 
 **Description:** Implement page `Student Screens`, frame `Organization details` (14:833): gradient hero with logo tile, name, description, status badge and the membership action (same logic and mutation as task 18), "Upcoming events" as two-column `EventCard` grid (events from `GET /api/events` for this organization, non-completed) and the "About" card explaining that member lists are private.
 Data from `GET /api/organizations/{organizationId}` (route `/organizations/:organizationId`). Show the 404 page for an unknown id and an empty state when there are no upcoming events. No organization code is shown anywhere.
-**Depends on:** 7, 18.
+**Depends on:** T54 — Event card and event status logic; T65 — Organizations list screen.
 
 ## Acceptance criteria
 

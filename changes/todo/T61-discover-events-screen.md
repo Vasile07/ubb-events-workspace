@@ -31,7 +31,7 @@ Source task 14 — Discover events screen
 Data from `GET /api/events` (non-drafts; completed and canceled included with their status); the Organization chip lists organizations from `GET /api/organizations` and filters by `organizationId`. If the API has no search/filter params do the filtering client-side and mention it in the PR. Keep filters in the URL query string.
 States: loading → frame `Discover events – loading` (48:587), no results → `Discover events – no results` (48:694, EmptyState Search with "Clear filters"), error → `Discover events – error` (48:757, ErrorState + error toast).
 Cards link to `/events/:eventId`.
-**Depends on:** 6, 7, 10.
+**Depends on:** T53 — Feedback components: toast, empty state, skeleton, error state; T54 — Event card and event status logic; T57 — App shell and top navigation.
 
 ## Acceptance criteria
 

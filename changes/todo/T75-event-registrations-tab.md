@@ -31,7 +31,7 @@ Source task 28 — Event registrations tab
 Data from `GET /api/organizations/{organizationId}/events/{eventId}/registrations` (members and managers; a 403 shows the 403 page). Canceled registrations are not listed but are counted in the tile.
 If the backend does not return a registration timestamp, remove that column and tell the planner.
 Add search by name/email on the client, an empty state ("No registrations yet", Users icon) and loading/error states.
-**Depends on:** 25.
+**Depends on:** T72 — Event workspace shell.
 
 ## Acceptance criteria
 

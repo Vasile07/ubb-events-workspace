@@ -31,7 +31,7 @@ Source task 27 — Event tasks tab
 Data from `GET /api/organizations/{organizationId}/events/{eventId}/tasks`.
 Managers add, edit and remove tasks in a modal using `TextArea` and a `Select` of organization members; members see the list read-only.
 States: loading (TableSkeleton), empty (EmptyState with "Add task" for managers) and error. Disable changes on canceled and completed events.
-**Depends on:** 25.
+**Depends on:** T72 — Event workspace shell.
 
 ## Acceptance criteria
 

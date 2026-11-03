@@ -39,7 +39,7 @@ States:
 - empty → `Org – Events (empty)` (49:1081, EmptyState Calendar with "Create event" for managers)
 - error → ErrorState.
 
-**Depends on:** 5, 6, 21.
+**Depends on:** T52 — Base UI components: layout and data display; T53 — Feedback components: toast, empty state, skeleton, error state; T68 — Organization workspace shell.
 
 ## Acceptance criteria
 

@@ -25,9 +25,9 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 <!-- What needs to be done and why. Which user need does it address? -->
 
-Source task 1 — Project setup
+Source task 1 — Project setup
 
-**Description:** Create the frontend with React + TypeScript + Vite (change if another stack is chosen). Add React Router, TanStack Query, ESLint, Prettier and the folder structure by feature: `features/auth`, `features/events`, `features/organizations`, `features/workspace`, `shared/ui`, `shared/api`, `shared/lib`. Configure path aliases, strict TypeScript, and `.env.example` with `VITE_API_URL`. Frontend API calls use this URL directly without a development proxy or hard-coded port; never commit `.env`. Add scripts `dev`, `build`, `lint`, `typecheck` and a README with run instructions. Done when all scripts pass on an empty app shell with a placeholder home route.
+**Depends on:** none.
 
 ## Acceptance criteria
 

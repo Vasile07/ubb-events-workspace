@@ -31,7 +31,7 @@ Source task 33 — Organization members screen
 Data from `GET .../members`; promote with `PATCH .../members/{userId}/role` sending `MANAGER`.
 Promotion is permanent: the confirmation modal must say it cannot be undone and there is no demote action. Plain members see the list without actions.
 Loading, empty and error states; invalidate the auth context memberships if the current user is affected.
-**Depends on:** 21.
+**Depends on:** T68 — Organization workspace shell.
 
 ## Acceptance criteria
 

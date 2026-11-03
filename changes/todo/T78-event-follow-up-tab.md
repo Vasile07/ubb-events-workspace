@@ -30,7 +30,7 @@ Source task 31 — Event follow-up tab
 **Description:** Implement page `Organization Screens`, frame `Org – Event: Follow-up` (16:591): info banner, form with Summary and Feedback textareas and "Save follow-up", plus the "Event recap" card (registered participants, tasks, announcements counts, computed from existing queries).
 Read with `GET .../events/{eventId}/follow-up` (404 = none yet, show the empty form) and create with `POST` on the same path (any manager of the organization, only after the event has ended).
 Before the event ends show the form in a locked state with an explanation; plain members see the saved follow-up read-only or an empty state. After saving switch to a read view with an "editing is not available" note (no update endpoint) and a success toast.
-**Depends on:** 25.
+**Depends on:** T72 — Event workspace shell.
 
 ## Acceptance criteria
 

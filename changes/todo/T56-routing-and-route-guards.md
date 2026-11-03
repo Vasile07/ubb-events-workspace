@@ -38,7 +38,7 @@ Guards:
 - `RequireOrgMember` and `RequireOrgManager` (render the 403 page when the role is insufficient; manager-only: create/edit/publish/delete event, membership requests, promote, follow-up).
 
 Default redirect to `/events`. Placeholder pages are fine until the screens exist.
-**Depends on:** 8.
+**Depends on:** T55 — Authentication context provider.
 
 ## Acceptance criteria
 

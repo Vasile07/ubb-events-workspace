@@ -30,7 +30,7 @@ Source task 20 — Profile screen
 **Description:** Implement page `Student Screens`, frame `Profile` (14:978): account card with avatar (initials from first and last name), **First name** and **Last name** fields side by side, read-only email with helper "Your email is your sign-in identifier and can't be changed", Save changes / Cancel; right column with "My organizations" (name + role badge per membership) and a Log out button (calls `logout()`).
 Data from `GET /api/users/me` (returns `firstName` and `lastName`), save with `PUT /api/users/me` sending both fields; the email is never sent.
 Validate that both names are required and trimmed, disable Save until the form is dirty and valid, show backend field errors on the matching input, refresh the auth context after saving so the navbar chip and avatars update, and show a success toast. Cancel resets the form to the saved values.
-**Depends on:** 8, 10.
+**Depends on:** T55 — Authentication context provider; T57 — App shell and top navigation.
 
 ## Acceptance criteria
 

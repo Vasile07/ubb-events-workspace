@@ -33,7 +33,7 @@ Validation: required title, description, location, start and end; end after star
 The assignee select lists members from `GET /api/organizations/{organizationId}/members`.
 Backend errors: the form accepts `fieldErrors` with nested paths (e.g. `tasks[1].description`, `tasks[2].assigneeId`) and shows each message on the exact task row, plus a short error summary at the top of the form listing everything that must be corrected. Form values must never be lost after a failed submit.
 Props: `mode`, `initialValues`, `onSubmit`, `submitting`, `fieldErrors`.
-**Depends on:** 4, 5, 21.
+**Depends on:** T51 — Base UI components: actions and form fields; T52 — Base UI components: layout and data display; T68 — Organization workspace shell.
 
 ## Acceptance criteria
 

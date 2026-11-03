@@ -33,7 +33,7 @@ Source task 26 — Event actions: edit, publish and delete
 - Delete event: Danger button opening the modal from frame `Org – Delete event confirmation` (16:1061) that shows the number of affected participants and calls `DELETE .../events/{eventId}` (soft delete; the backend refuses ended events, show that message).
 
 Invalidate event, events list and discover queries and show toasts. Hide all of these for plain members.
-**Depends on:** 23, 25.
+**Depends on:** T70 — Event form component; T72 — Event workspace shell.
 
 ## Acceptance criteria
 

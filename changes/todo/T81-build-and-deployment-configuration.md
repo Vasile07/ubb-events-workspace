@@ -28,7 +28,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 Source task 34 — Build and deployment configuration
 
 **Description:** Add the production build, a multi-stage Dockerfile (Node build, Nginx serve with SPA history fallback and `/api` reverse proxy), environment-specific configuration, a docker-compose example that runs the frontend with the backend, and a GitHub Actions workflow that builds and publishes the image. Document the required environment variables and the deployment steps in the README.
-**Depends on:** 33.
+**Depends on:** T80 — Organization members screen.
 
 ## Acceptance criteria
 

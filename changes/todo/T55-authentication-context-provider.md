@@ -39,7 +39,7 @@ Source task 8 — Authentication context provider
 Restore the session on startup by calling `/users/me` when a token exists; show a full-page loader meanwhile.
 Register the API client's unauthorized handler here (`setUnauthorizedHandler` from task 3) so an expired token logs the user out and shows a toast. The auth layer depends on the API client, never the other way around.
 Add tests for restore-on-reload, login failure (no logout loop) and logout.
-**Depends on:** 1, 3, 6.
+**Depends on:** T48 — Project setup; T50 — API client and error handling; T53 — Feedback components: toast, empty state, skeleton, error state.
 
 ## Acceptance criteria
 

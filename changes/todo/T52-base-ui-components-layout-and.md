@@ -40,7 +40,7 @@ Source task 5 — Base UI components: layout and data display
 - `PageHeader` (title, subtitle, right slot)
 - `Icon` wrapper (calendar, pin, clock, users, building, bell, check, x, plus, send, lock, trash, edit, info, alert, chevrons, arrow-left, search, ticket, megaphone, tasks, shield, logout).
 
-**Depends on:** 2, 4.
+**Depends on:** T49 — Design tokens and global styles; T51 — Base UI components: actions and form fields.
 
 ## Acceptance criteria
 
