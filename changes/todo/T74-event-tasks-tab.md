@@ -9,7 +9,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 ## Metadata
 
 - **Task ID:** T74
-- **Type:** deployment
+- **Type:** workflow
 - **Owner:** Blaj Horatiu
 - **Requirement(s):** 
 - **Use case(s):** UC-07

@@ -9,7 +9,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 ## Metadata
 
 - **Task ID:** T56
-- **Type:** deployment
+- **Type:** workflow
 - **Owner:** Cernautan Teofan
 - **Requirement(s):** 
 - **Use case(s):** 

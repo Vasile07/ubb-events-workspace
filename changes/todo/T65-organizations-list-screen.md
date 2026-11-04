@@ -9,7 +9,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 ## Metadata
 
 - **Task ID:** T65
-- **Type:** deployment
+- **Type:** workflow
 - **Owner:** Karina Kentsch
 - **Requirement(s):** 
 - **Use case(s):** UC-04
