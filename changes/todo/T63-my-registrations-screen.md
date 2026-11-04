@@ -9,7 +9,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 ## Metadata
 
 - **Task ID:** T63
-- **Type:** deployment
+- **Type:** workflow
 - **Owner:** Brudea Armand
 - **Requirement(s):** 
 - **Use case(s):** UC-18

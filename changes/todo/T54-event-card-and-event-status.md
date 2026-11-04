@@ -9,7 +9,7 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 ## Metadata
 
 - **Task ID:** T54
-- **Type:** deployment
+- **Type:** workflow
 - **Owner:** Irimies Vasile
 - **Requirement(s):** 
 - **Use case(s):** UC-09, UC-10
