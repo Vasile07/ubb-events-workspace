@@ -1,4 +1,4 @@
-# T61 - Discover events screen
+# T82 - Delete and discover events
 
 <!--
 Do NOT rename, remove or reorder the section headings below.
@@ -8,43 +8,42 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 
 ## Metadata
 
-- **Task ID:** T61
+- **Task ID:** T82
 - **Type:** workflow
-- **Owner:** Brudea Armand
+- **Owner:** 
 - **Requirement(s):** 
-- **Use case(s):** UC-09
+- **Use case(s):** 
 - **Workflow:** 
-- **Drive doc / ADR:** (link or section reference)
-- **Repo(s):** frontend
-- **Branch:** `T61-discover-events-screen`
+- **Drive doc / ADR:** 
+- **Repo(s):** backend
+- **Branch:** `T82-delete-and-discover-events`
 - **PR link(s):** 
 - **Tests:** (test classes/files, filled at the end)
 
 ## Description
 
-
 <!-- What needs to be done and why. Which user need does it address? -->
 
-Source task 14 — Discover events screen
+Update backend event deletion and event discovery behavior:
 
-**Description:** Implement page `Student Screens`, frame `Discover events` (13:119): header with result count, `SearchField`, chips (Organization, Date range, "Open for registration" toggle) with "Clear filters", 3-column grid of `EventCard` and "Load more events".
-Data from `GET /api/events` (non-drafts; completed and canceled included with their status); the Organization chip lists organizations from `GET /api/organizations` and filters by `organizationId`. If the API has no search/filter params do the filtering client-side and mention it in the PR. Keep filters in the URL query string.
-States: loading → frame `Discover events – loading` (48:587), no results → `Discover events – no results` (48:694, EmptyState Search with "Clear filters"), error → `Discover events – error` (48:757, ErrorState + error toast).
-Cards link to `/events/:eventId`.
-**Depends on:** T53 — Feedback components: toast, empty state, skeleton, error state; T54 — Event card and event status logic; T57 — App shell and top navigation.
+- When deleting a draft event, remove it from the database.
+- When deleting a published event, retain it and set its status to `CANCELED`.
+- Include canceled events in the results returned by event discovery.
+- Include each discovered event's `capacity` and `spotsTaken` (registration count) in the summary response so the frontend can render event capacity and filter events open for registration.
 
 ## Acceptance criteria
 
+<!-- Proposed from the user's request; confirm or edit. -->
 
-<!-- Proposed from the frontend task list; confirm or edit. -->
-
-- [ ] All behavior and UI details listed in the Description are implemented, including stated API interactions and applicable product rules.
-- [ ] The task's stated dependency prerequisites are merged before implementation.
-- [ ] Applicable loading, empty, error, validation, and accessibility states listed in the Description are implemented and verified.
+- [ ] **Proposed:** Deleting a draft event removes it from persistence.
+- [ ] **Proposed:** Deleting a published event retains the record with status `CANCELED`.
+- [ ] **Proposed:** `GET /api/events` includes canceled events in its results.
+- [ ] **Proposed:** Discovery summaries include `capacity` and `spotsTaken` (registration count) for each returned event.
+- [ ] **Proposed:** Backend tests cover both deletion branches and discovery of canceled events.
 
 ## Context
 
-<!-- Filled by the agent at the start: relevant files in repos/, related completed tasks, constraints. Only what is relevant. -->
+<!-- Filled by the agent at the start: relevant files in repos/, related completed tasks. Only what is relevant. -->
 
 - **Relevant code:** 
 - **Related completed tasks:** 
@@ -116,5 +115,3 @@ in the user's own terms. Never on the agent's own initiative.
 - [ ] **Gate 3:** merged by user
 - [ ] Metadata complete (traceability)
 - [ ] Moved to `changes/completed/`
-
-
