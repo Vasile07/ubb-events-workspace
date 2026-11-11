@@ -13,11 +13,11 @@ Fill metadata as information becomes available. Leave unknown values empty, do n
 - **Owner:** Brudea Armand
 - **Requirement(s):** 
 - **Use case(s):** UC-09
-- **Workflow:** 
-- **Drive doc / ADR:** (link or section reference)
+- **Workflow:** Event discovery
+- **Drive doc / ADR:** [Google Drive project documentation — Source task 14, Discover events screen](https://docs.google.com/document/d/1yxuTw802yzVg7W2Efn1kozgppFnyh9umw7WgCmRutJ8/edit?tab=t.j04pz2q0fhhi#heading=h.3se70sg4uban)
 - **Repo(s):** frontend
 - **Branch:** `T61-discover-events-screen`
-- **PR link(s):** 
+- **PR link(s):** https://github.com/Vasile07/ubb-events-frontend/pull/11
 - **Tests:** `repos/ubb-events-frontend/cypress/e2e/discover-events.cy.ts`; `npm run typecheck`, `npm run lint`, `npm run build`, and the frontend Cypress suite.
 
 ## Description
@@ -38,19 +38,19 @@ Cards link to `/events/:eventId`.
 
 <!-- Proposed from the frontend task list; confirm or edit. -->
 
-- [ ] All behavior and UI details listed in the Description are implemented, including stated API interactions and applicable product rules.
-- [ ] The task's stated dependency prerequisites are merged before implementation.
-- [ ] Applicable loading, empty, error, validation, and accessibility states listed in the Description are implemented and verified.
+- [x] All behavior and UI details listed in the Description are implemented, including stated API interactions and applicable product rules.
+- [x] The task's stated dependency prerequisites are merged before implementation.
+- [x] Applicable loading, empty, error, validation, and accessibility states listed in the Description are implemented and verified.
 
 ## Context
 
 <!-- Filled by the agent at the start: relevant files in repos/, related completed tasks, constraints. Only what is relevant. -->
 
 - **Relevant code:** `repos/ubb-events-frontend/src/App.tsx` contains the authenticated `/events` placeholder and a `/components` demo for `SearchField`, `FilterChip`, and `EventCard`; `src/shared/api/client.ts` provides `apiFetch`, and `src/shared/api/organizations.ts` provides `getOrganizations()`. `src/shared/ui/EventCard.tsx`, `FeedbackComponents.tsx`, `SearchField.tsx`, and `FilterChip.tsx` provide the reusable card, loading/error/empty, search, and filter primitives. `src/shared/lib/eventStatus.ts` provides event status mapping. There is no frontend events API module yet.
-- **Related completed tasks:** `changes/completed/T53-feedback-components-toast-empty-state.md`, `T54-event-card-and-event-status.md`, and `T57-app-shell-and-top-navigation.md` are merged frontend dependencies. Backend workflow tasks `T29-discover-events` and `T30-filter-events` define the current event list endpoint and its filters.
-- **Constraints / assumptions:** Frontend repo is clean on `master` and was up to date after fetch/pull. User confirmed T61 should include completed and canceled events and use T30 API filters. T29's implemented contract is still published-only, and T30 preserves published-only filtering; status is `PUBLISHED` even for past events. The user requested the backend fix as separate task [T82](../todo/T82-delete-and-discover-events.md), including capacity and spotsTaken; T61 proceeds on the assumption that canceled events will eventually be included. T30 query parameters are `search`, `organizationId`, `from`, and `to`. The canonical Figma file is accessible in session `e3494081-30d1-4e45-9b35-20f8ad22bc7f`; the main frame (`13:119`), loading (`48:587`), and no-results (`48:694`) contexts were read. The error frame (`48:757`) returned `INVALID_ARGUMENT`, and subsequent metadata access hit the Starter plan call limit; its visual context remains unverified.
+- **Related completed tasks:** `changes/completed/T53-feedback-components-toast-empty-state.md`, `T54-event-card-and-event-status.md`, and `T57-app-shell-and-top-navigation.md` are merged frontend dependencies. Backend workflow tasks `T29-discover-events` and `T30-filter-events` define the event endpoint and its filters; T82 (`T82-delete-and-discover-events`, backend PR #40) is merged in backend commit `92e58dd`.
+- **Constraints / assumptions:** User confirmed T61 should include completed and canceled events and use T30 API filters. The merged T82 contract includes canceled events and `capacity`/`spotsTaken` in discovery summaries. T30 query parameters are `search`, `organizationId`, `from`, and `to`; past events retain `PUBLISHED` status, and T61 derives their completed card status from the event end time (or start time when absent). The canonical Figma file is accessible in session `e3494081-30d1-4e45-9b35-20f8ad22bc7f`; the main frame (`13:119`), loading (`48:587`), and no-results (`48:694`) contexts were read. The error frame (`48:757`) returned `INVALID_ARGUMENT`, and subsequent metadata access hit the Starter plan call limit; its visual context remains unverified.
 
-**Backend follow-up:** The user requested the changes as separate task [T82](../todo/T82-delete-and-discover-events.md), including `capacity` and `spotsTaken` in discovery summaries. T61 proceeds on the assumption that canceled events will eventually be included.
+**Backend follow-up:** T82 is implemented and merged in backend PR #40 (`92e58dd`). Its deletion behavior, canceled-event discovery, and summary capacity/count fields are now available to T61.
 
 ## Plan
 
@@ -88,8 +88,6 @@ Client-side filtering will be used only as a compatibility fallback when the API
 
 ### Risks / open questions
 
-- The current backend T29/T30 implementation returns published events only and omits canceled events; the separate T82 bug-fix task must change deletion and discovery semantics before canceled cards can appear.
-- The existing T29 summary response omits `capacity` and `spotsTaken`; the user added these fields to T82 so T54 `EventCard` and the open-registration filter can use real values without defaults.
 - T30 has no pagination, so Load more can only reveal more items already returned. If product requires server pagination, that is a separate API change.
 - The canonical Figma file and main/loading/no-results contexts are accessible. The error frame (`48:757`) could not be read (`INVALID_ARGUMENT`), and metadata access then reached the Starter plan call limit. Follow the T53 ErrorState component and task description unless that frame becomes accessible before implementation.
 
@@ -105,8 +103,8 @@ Client-side filtering will be used only as a compatibility fallback when the API
 
 ### Green (after implementation)
 
-- **Result:** `npm run cypress:run -- --spec cypress/e2e/discover-events.cy.ts --browser electron --reporter spec` — 5 passing. `npm run typecheck`, `npm run lint`, and `npm run build` all passed on the final implementation. `git diff --check` passed.
-- **Full suite of the affected repo:** `npm run cypress:run -- --browser electron --reporter spec` — 50 passing across 11 specs.
+- **Result:** `npm run cypress:run -- --spec cypress/e2e/discover-events.cy.ts --browser electron --reporter spec` — 7 passing. In addition to the original cases, the spec verifies that open-only excludes canceled, ended, and full events, and that Tab traverses the search and filter controls with native button/checkbox semantics. This coverage was added after implementation as follow-up verification; it is not presented as pre-implementation red evidence. `npm run typecheck` and `npm run build` passed on the implementation before these test-only additions; `npm run lint` and `git diff --check` passed after them.
+- **Full suite of the affected repo:** `npm run cypress:run -- --browser electron --reporter spec` — 52 passing across 11 specs after the additional T61 assertions.
 
 ## Human Corrections
 
@@ -125,9 +123,9 @@ in the user's own terms. Never on the agent's own initiative.
 
 <!-- Study note for the defense. Decisions made, alternatives considered, known limitations. -->
 
-- **Decisions:** Keep the discover page under the existing authenticated app shell. Treat URL query parameters as the persistent source for search, organization, date range, and open-only filters; send supported criteria to the T30 API. Map backend `PUBLISHED` into the card lifecycle, then display it as completed after its end time (or start time when no end time exists), matching T30. Use T82's planned `capacity` and `spotsTaken` values for registration availability. Reveal loaded results six at a time because the endpoint has no pagination.
+- **Decisions:** Keep the discover page under the existing authenticated app shell. Treat URL query parameters as the persistent source for search, organization, date range, and open-only filters; send supported criteria to the T30 API. Map backend `PUBLISHED` into the card lifecycle, then display it as completed after its end time (or start time when no end time exists), matching T30. Use the `capacity` and `spotsTaken` values added by merged T82 for registration availability. Reveal loaded results six at a time because the endpoint has no pagination.
 - **Alternatives considered:** Filter all criteria in the browser, which would duplicate T30's server behavior and be less efficient; add server pagination, which is outside the current API contract; add backend changes to T61, which the user assigned to separate task T82.
-- **Limitations:** Canceled events and capacity/count fields depend on T82 changing the backend contract; the current backend does not return them yet. “Load more” reveals already-loaded results and does not fetch another page. The Figma error-state frame was not accessible due to an invalid node response and Starter plan call limit, so the implementation follows the task description and existing T53 `ErrorState` pattern. The Electron runner emitted a deprecation warning, but the suite completed successfully.
+- **Limitations:** “Load more” reveals already-loaded results and does not fetch another page because the endpoint has no pagination. The Figma error-state frame was not accessible due to an invalid node response and Starter plan call limit, so the implementation follows the task description and existing T53 `ErrorState` pattern. The Electron runner emitted a deprecation warning, but the suite completed successfully.
 
 ## Status
 
@@ -139,10 +137,10 @@ in the user's own terms. Never on the agent's own initiative.
 - [x] Implementation reviewed by user
 - [x] **Gate 2:** approved for commit and push
 - [x] Committed and pushed
-- [ ] PR created
-- [ ] PR reviewed
-- [ ] **Gate 3:** merged by user
-- [ ] Metadata complete (traceability)
-- [ ] Moved to `changes/completed/`
+- [x] PR created
+- [x] PR reviewed
+- [x] **Gate 3:** merged by user
+- [x] Metadata complete (traceability; no requirement ID was supplied with source task 14)
+- [x] Moved to `changes/completed/`
 
 
