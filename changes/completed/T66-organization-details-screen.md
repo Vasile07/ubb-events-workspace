@@ -102,7 +102,7 @@ Build a route-backed organization details feature under `features/organizations`
 
 ### Green (after implementation)
 
-- **Result:** After implementation, `npm run typecheck`, `npm run lint`, and `npm run build` passed. The final `organization-details.cy.ts` run passed 5/5, including request filtering, membership, empty, 404, loading, retry, Figma asset dimensions, and frame geometry assertions. `routing-and-guards.cy.ts` passed 10/10 in the final full-suite run.
+- **Result:** After implementation, `npm run typecheck`, `npm run lint`, and `npm run build` passed. The final `organization-details.cy.ts` run passed 5/5, including request filtering, membership, empty, 404, loading, retry, Figma asset dimensions, and frame geometry assertions. After rebasing onto frontend master `7fbb651`, typecheck, lint, and build passed again; `organization-details.cy.ts` and the merged T68 `organization-workspace-shell.cy.ts` passed 11/11 combined, and `routing-and-guards.cy.ts` passed 10/10. The full suite was not rerun after the rebase.
 - **Full suite of the affected repo:** `CYPRESS_CACHE_FOLDER='C:\Users\irimi\AppData\Local\Cypress\Cache' npx cypress run --browser electron --reporter spec` ran 18 specs: 98 passed, 2 failed. Both failures are in `organizations-list.cy.ts` (lines 41 and 60), where assertions expect a hidden `organizations-page` span to be visible. That file was not changed by T66. No baseline full-suite run was taken, so these failures cannot be conclusively labeled pre-existing.
 
 ## Human Corrections
