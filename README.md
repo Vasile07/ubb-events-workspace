@@ -2,6 +2,11 @@
 
 AI-assisted, human-in-the-loop workspace for the UBB student organizations event management project (university project). It organizes the work as **tasks**: each task is one `task.md` file that holds the requirement links, the plan, the test evidence and the human corrections, so the whole process stays traceable and explainable.
 
+## Deployed versions
+
+- [Frontend](https://ubb-events-frontend.happypond-e62576ee.francecentral.azurecontainerapps.io/events) — deployed on Microsoft Azure Container Apps.
+- [Backend Swagger UI](https://ubb-events-backend.onrender.com/swagger-ui.html) — the backend is monitored by a bot that pings it to keep it available.
+
 The project documentation (requirements, use cases, architecture, ERD, API specification, ADRs) is written manually in Google Drive. This workspace holds the task evidence and the instructions for the agents.
 
 ## Structure
