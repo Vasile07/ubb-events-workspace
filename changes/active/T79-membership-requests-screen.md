@@ -46,9 +46,9 @@ Managers only (guard from task 9). Empty state per tab ("No pending requests") a
 
 <!-- Filled by the agent at the start: relevant files in repos/, related completed tasks, constraints. Only what is relevant. -->
 
-- **Relevant code:** 
-- **Related completed tasks:** 
-- **Constraints / assumptions:** 
+- **Relevant code:** `repos/ubb-events-frontend/src/features/organizations/OrganizationWorkspace.tsx` loads manager-only pending requests and owns the workspace/sidebar badge; `src/features/organizations/membershipRequestQueries.ts` centralizes its query key/invalidation; `src/shared/api/organizations.ts` defines organization and membership-request calls; `src/shared/api/types.ts` has a loose request response type; `src/App.tsx` maps `/org/:organizationId/requests` to a placeholder through the manager guard. Toast/query mutation patterns exist in `src/features/events/EventWorkspace.tsx` and `src/features/organizations/OrganizationDetailsPage.tsx`.
+- **Related completed tasks:** T68 (organization workspace shell; merged and present on frontend master); T15 (GET requests contract); T16 (PATCH decision contract).
+- **Constraints / assumptions:** Frontend-only repo per task metadata. T15 describes request fields `membershipId`, `userId`, `role`, `status`, with status filtering defaulting to `PENDING` and explicit persisted statuses `PENDING`/`ACTIVE`. T16 accepts lowercase `accepted`/`declined`; accepted requests become `ACTIVE`, declined request rows are deleted. The current T68 sidebar request query returns pending requests and already has an invalidation seam. User clarification is needed because the requested Accepted/Declined tabs, applicant identity/contact/date/avatar, and post-decline state are not all represented by those backend contracts.
 
 ## Plan
 
@@ -103,7 +103,7 @@ in the user's own terms. Never on the agent's own initiative.
 
 ## Status
 
-- [ ] Task read and context gathered
+- [x] Task read and context gathered
 - [ ] Plan written
 - [ ] **Gate 1:** plan approved by user
 - [ ] Tests written and confirmed failing (red)
